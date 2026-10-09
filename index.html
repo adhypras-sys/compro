@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT VMI - Profil Perusahaan & Katalog Pengadaan Laboratorium</title>
+    <title>PT VMI - Solusi Laboratorium Terpadu</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,6 @@
     
     <style>
         :root {
-            /* Palet Utama: Putih, Ungu Tua, Emas */
             --bg-white: #ffffff;
             --bg-offwhite: #fcfcfd;
             
@@ -28,8 +27,11 @@
             --text-muted: #4B4B5C;
             
             --border-light: rgba(74, 43, 130, 0.12);
+            --border-gold: rgba(212, 175, 55, 0.3);
+            
             --shadow-sm: 0 2px 4px rgba(43, 27, 77, 0.04);
-            --shadow-md: 0 8px 16px rgba(43, 27, 77, 0.08);
+            --shadow-md: 0 8px 12px rgba(43, 27, 77, 0.06);
+            --shadow-lg: 0 12px 24px rgba(43, 27, 77, 0.1);
             
             --transition: all 0.3s ease;
         }
@@ -53,7 +55,7 @@
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 2rem;
         }
         
         .section-padding { padding: 5rem 0; }
@@ -81,7 +83,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 75px;
+            height: 70px;
         }
 
         .logo {
@@ -91,24 +93,31 @@
             text-decoration: none;
         }
 
-        .logo img {
+        .vmi-logo-img {
+            width: 45px;
             height: 45px;
-            width: auto;
-            min-width: 45px;
             object-fit: contain;
-            display: block;
+        }
+
+        .fallback-logo-icon {
+            background: var(--purple-dark);
+            color: var(--gold-main);
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
         }
 
         .logo-text h1 {
             color: var(--purple-dark);
-            font-size: 1.4rem;
-            font-weight: 800;
+            font-size: 1.2rem;
+            font-weight: 700;
             line-height: 1.1;
         }
         .logo-text span {
             color: var(--gold-dark);
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
@@ -127,12 +136,13 @@
             font-size: 0.95rem;
             transition: var(--transition);
         }
+
         .nav-links a:hover { color: var(--purple-main); }
 
         .btn-primary {
             background: var(--gold-main);
             color: var(--purple-dark) !important;
-            padding: 0.6rem 1.4rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 6px;
             font-weight: 600;
             border: none;
@@ -148,7 +158,6 @@
             color: var(--bg-white) !important;
         }
 
-        /* Mobile Hamburger Menu */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -156,29 +165,6 @@
             font-size: 1.5rem;
             color: var(--purple-dark);
             cursor: pointer;
-        }
-
-        @media (max-width: 900px) {
-            .mobile-menu-btn { display: block; }
-            .nav-links {
-                position: absolute;
-                top: 75px; left: 0; width: 100%;
-                background: var(--bg-white);
-                flex-direction: column;
-                gap: 0;
-                border-bottom: 1px solid var(--border-light);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease-out;
-            }
-            .nav-links.active { max-height: 300px; }
-            .nav-links li { width: 100%; border-top: 1px solid var(--bg-offwhite); }
-            .nav-links a {
-                display: block;
-                padding: 1rem 1.5rem;
-                width: 100%;
-            }
-            .btn-primary { margin: 1rem 1.5rem; display: inline-flex; }
         }
 
         .hero {
@@ -191,7 +177,7 @@
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: center;
         }
@@ -222,10 +208,20 @@
             color: #E2DFEB;
             margin-bottom: 2rem;
             line-height: 1.6;
+            max-width: 90%;
         }
 
-        .trust-indicators { display: flex; gap: 2rem; flex-wrap: wrap; }
-        .trust-item { display: flex; align-items: center; gap: 12px; }
+        .trust-indicators {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
         .trust-icon {
             width: 40px; height: 40px;
             border-radius: 6px;
@@ -235,198 +231,651 @@
             font-size: 1.2rem;
             border: 1px solid rgba(212,175,55,0.3);
         }
+
         .trust-text h4 { font-size: 0.95rem; font-weight: 600; color: #fff;}
         .trust-text p { font-size: 0.8rem; color: #BDB5CE; margin: 0;}
 
-        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
         .section-subtitle {
-            color: var(--gold-dark); font-weight: 600; text-transform: uppercase;
-            letter-spacing: 1px; font-size: 0.85rem; margin-bottom: 0.5rem; display: block;
+            color: var(--gold-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            display: block;
         }
-        .section-title { color: var(--purple-dark); font-size: 2.2rem; font-weight: 700; }
+        .section-title {
+            color: var(--purple-dark);
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
 
-        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
         .service-card {
-            background: var(--bg-white); border-radius: 12px; padding: 2rem 1.5rem;
-            border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);
-            transition: var(--transition); scroll-margin-top: 90px;
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            scroll-margin-top: 90px;
         }
+
         .service-card:hover {
-            transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--gold-main);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--gold-main);
         }
+
         .service-icon {
-            width: 50px; height: 50px; background: var(--purple-light); color: var(--purple-main);
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; margin-bottom: 1.2rem;
+            width: 50px; height: 50px;
+            background: var(--purple-light);
+            color: var(--purple-main);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
         }
-        .service-card h3 { font-size: 1.1rem; color: var(--purple-dark); margin-bottom: 0.8rem; font-weight: 700; }
-        .service-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem; line-height: 1.5; }
-        .service-list { list-style: none; border-top: 1px solid var(--border-light); padding-top: 1rem; }
-        .service-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 0.6rem; }
-        .service-list li i { color: var(--gold-dark); font-size: 0.8rem; margin-top: 4px; }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            color: var(--purple-dark);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+
+        .service-list {
+            list-style: none;
+            border-top: 1px solid var(--border-light);
+            padding-top: 1rem;
+        }
+
+        .service-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            margin-bottom: 0.6rem;
+        }
+        .service-list li i { color: var(--gold-dark); font-size: 0.8rem;}
+
+        .technician-section {
+            background: #ffffff;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+        .tech-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .metric-card {
+            background: var(--bg-offwhite);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .metric-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-main);
+            box-shadow: var(--shadow-sm);
+        }
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--purple-main), var(--gold-main));
+        }
+        .metric-val {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--purple-dark);
+            display: block;
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+        }
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tech-hub-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        .zone-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .zone-btn {
+            background: var(--bg-offwhite);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            width: 100%;
+        }
+        .zone-btn:hover {
+            border-color: var(--purple-main);
+            background: #ffffff;
+        }
+        .zone-btn.active {
+            background: var(--purple-dark);
+            color: #ffffff;
+            border-color: var(--purple-dark);
+            box-shadow: var(--shadow-md);
+        }
+        .zone-btn-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .zone-badge-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gold-main);
+            flex-shrink: 0;
+        }
+        .zone-btn.active .zone-badge-dot {
+            background: #52c41a;
+            box-shadow: 0 0 8px rgba(82, 196, 26, 0.8);
+        }
+        .zone-btn-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .zone-btn-count {
+            font-size: 0.8rem;
+            opacity: 0.75;
+        }
+        .zone-btn-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(74, 43, 130, 0.1);
+            color: var(--purple-dark);
+        }
+        .zone-btn.active .zone-btn-tag {
+            background: rgba(212, 175, 55, 0.25);
+            color: var(--gold-light);
+        }
+
+        .zone-detail-card {
+            background: var(--bg-offwhite);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 2rem;
+            position: relative;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .zone-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .zone-detail-title h4 {
+            font-size: 1.4rem;
+            color: var(--purple-dark);
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+        .zone-detail-title p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .sla-pill {
+            background: rgba(43, 27, 77, 0.08);
+            border: 1px solid var(--border-light);
+            color: var(--purple-main);
+            padding: 0.4rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .province-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .prov-tag {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .prov-tag i { color: var(--gold-dark); font-size: 0.7rem; }
+        .tech-spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            border-top: 1px dashed var(--border-light);
+            padding-top: 1.25rem;
+        }
+        .tech-spec-item {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .tech-spec-item h5 {
+            font-size: 0.85rem;
+            color: var(--purple-dark);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tech-spec-item p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+        }
 
         .catalog-container {
-            background: var(--bg-white); border-radius: 12px; padding: 2.5rem;
-            box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
         }
-        .catalog-controls { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem; }
-        .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; width: 100%; }
+        .catalog-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .search-wrapper {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+        }
         .search-wrapper i {
-            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-            color: var(--text-muted); font-size: 1rem;
+            position: absolute;
+            left: 15px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
         }
         .search-wrapper input {
-            width: 100%; padding: 0.9rem 1.2rem 0.9rem 2.8rem; border: 1px solid var(--border-light);
-            border-radius: 6px; font-size: 0.95rem; color: var(--text-dark); outline: none;
-            transition: var(--transition); background: var(--bg-offwhite);
+            width: 100%;
+            padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition);
+            background: var(--bg-offwhite);
         }
-        .search-wrapper input:focus { border-color: var(--purple-main); background: var(--bg-white); }
-        .filter-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+        .search-wrapper input:focus {
+            border-color: var(--purple-main);
+            background: var(--bg-white);
+        }
+        .filter-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+        }
         .filter-btn {
-            background: var(--bg-white); border: 1px solid var(--border-light); color: var(--text-muted);
-            padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;
-            cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        .filter-btn:hover { border-color: var(--purple-main); color: var(--purple-main); }
+        .filter-btn:hover {
+            border-color: var(--purple-main);
+            color: var(--purple-main);
+        }
         .filter-btn.active {
-            background: var(--purple-main); color: var(--bg-white); border-color: var(--purple-main);
+            background: var(--purple-main);
+            color: var(--bg-white);
+            border-color: var(--purple-main);
         }
         .filter-btn .badge {
-            background: var(--border-light); color: var(--text-muted); padding: 2px 6px;
-            border-radius: 4px; font-size: 0.75rem; transition: var(--transition);
+            background: var(--border-light);
+            color: var(--text-muted);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
         }
-        .filter-btn.active .badge { background: rgba(255,255,255,0.2); color: var(--bg-white); }
+        .filter-btn.active .badge {
+            background: rgba(255,255,255,0.2);
+            color: var(--bg-white);
+        }
 
-        /* Accordion / Collapsible Styling */
         .category-block {
-            margin-bottom: 1.5rem; border: 1px solid var(--border-light); border-radius: 8px;
-            overflow: hidden; background: var(--bg-white); transition: var(--transition);
+            margin-bottom: 2.5rem;
+            background: var(--bg-white);
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            overflow: hidden;
         }
         .cat-header {
-            display: flex; align-items: center; justify-content: space-between; padding: 1.2rem;
-            cursor: pointer; user-select: none; transition: var(--transition);
-        }
-        .cat-header:hover { background: var(--bg-offwhite); }
-        .cat-header-left { display: flex; align-items: center; gap: 15px; }
-        
-        .cat-icon {
-            width: 45px; height: 45px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-        }
-        .cat-title h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-        .cat-title p { font-size: 0.85rem; color: var(--text-muted); }
-        .cat-toggle-icon {
-            font-size: 1.2rem; color: var(--text-muted); transition: transform 0.3s ease;
-        }
-        .category-block.expanded .cat-toggle-icon { transform: rotate(180deg); }
-        
-        .cat-content-wrapper {
-            display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease-out;
-        }
-        .category-block.expanded .cat-content-wrapper { grid-template-rows: 1fr; }
-        
-        /* Padding ditambahkan di sini agar efek hover kartu tidak terpotong (clipped) */
-        .cat-content-inner { overflow: hidden; padding: 10px 5px 15px 5px; }
-
-        .items-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.2rem; padding: 0.5rem 1.2rem;
-        }
-
-        .item-card {
-            background: var(--bg-white); border: 1px solid var(--border-light);
-            border-radius: 8px; padding: 1.2rem; transition: var(--transition);
-            display: flex; flex-direction: column; cursor: pointer; position: relative;
-        }
-        .item-card:hover { border-color: var(--purple-main); box-shadow: var(--shadow-sm); transform: translateY(-3px); }
-        
-        /* Highlight Class for Selected Item */
-        .item-card.highlighted {
-            border-color: var(--gold-main); background: var(--gold-light);
-            box-shadow: 0 0 0 1px var(--gold-main); z-index: 2;
-        }
-        .highlight-check {
-            position: absolute; top: 10px; right: 10px; color: var(--gold-dark);
-            font-size: 1.2rem; opacity: 0; transition: opacity 0.2s;
-        }
-        .item-card.highlighted .highlight-check { opacity: 1; }
-
-        .item-card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 1rem; }
-        .item-icon {
-            width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center;
-            justify-content: center; font-size: 1.1rem; flex-shrink: 0;
-            background: var(--purple-light); color: var(--purple-main);
-        }
-        .item-card.highlighted .item-icon { background: var(--gold-main); color: var(--purple-dark); }
-        
-        .item-info { flex-grow: 1; padding-right: 15px; }
-        .item-name { font-size: 0.95rem; font-weight: 700; color: var(--purple-dark); line-height: 1.3; margin-bottom: 0.4rem; }
-        .item-function { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
-
-        .item-footer {
-            margin-top: auto; padding-top: 1rem; border-top: 1px dashed var(--border-light);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .item-card.highlighted .item-footer { border-top-color: rgba(212, 175, 55, 0.4); }
-
-        .status-badge {
-            font-size: 0.75rem; font-weight: 600; color: var(--purple-dark); background: var(--purple-light);
-            padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;
-        }
-
-        .support-links { display: flex; gap: 6px; }
-        .support-link {
-            width: 26px; height: 26px; border-radius: 4px; background: var(--bg-offwhite);
-            color: var(--text-muted); display: flex; align-items: center; justify-content: center;
-            text-decoration: none; font-size: 0.85rem; border: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-offwhite);
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-light);
             transition: var(--transition);
         }
-        /* Menghentikan event klik kartu ketika mengklik link support */
-        .support-link { position: relative; z-index: 10; } 
+        .cat-header:hover {
+            background: var(--purple-light);
+        }
+        .cat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .cat-icon {
+            width: 40px; height: 40px;
+            background: var(--purple-main);
+            color: var(--gold-main);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+        .cat-title h4 {
+            font-size: 1.1rem;
+            color: var(--purple-dark);
+            font-weight: 700;
+        }
+        .cat-title p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+        .cat-toggle-icon {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        .category-block.expanded .cat-toggle-icon {
+            transform: rotate(180deg);
+        }
+        .cat-content {
+            display: none;
+        }
+        .category-block.expanded .cat-content {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .cat-content-inner {
+            padding: 1.5rem;
+            /* Padding atas dan bawah ekstra agar efek shadow hover tidak terpotong */
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+        .item-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.2rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .item-card:hover {
+            border-color: var(--purple-main);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+        .item-card.highlighted {
+            border-color: var(--gold-main);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+            background: var(--gold-light);
+        }
+        .item-card-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+        .item-icon {
+            width: 40px; height: 40px;
+            border-radius: 6px;
+            background: var(--purple-light);
+            color: var(--purple-main);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .item-card:hover .item-icon, .item-card.highlighted .item-icon {
+            background: var(--purple-main);
+            color: var(--gold-main);
+        }
+        .item-info { flex-grow: 1; }
+        .item-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--purple-dark);
+            line-height: 1.3;
+            margin-bottom: 0.4rem;
+        }
+        .item-function {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .item-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--purple-dark);
+            background: var(--purple-light);
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .support-links {
+            display: flex;
+            gap: 6px;
+        }
+        .support-link {
+            width: 26px; height: 26px;
+            border-radius: 4px;
+            background: var(--bg-offwhite);
+            color: var(--text-muted);
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
         .support-link:hover {
-            background: var(--gold-main); color: var(--bg-white); border-color: var(--gold-main);
+            background: var(--gold-main);
+            color: var(--bg-white);
+            border-color: var(--gold-main);
         }
 
         .workflow {
-            background: var(--purple-dark); color: var(--bg-white);
-            border-radius: 12px; padding: 4rem 3rem; position: relative;
+            background: var(--purple-dark);
+            color: var(--bg-white);
+            border-radius: 12px;
+            padding: 4rem 3rem;
+            position: relative;
         }
-        .wf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; z-index: 2; }
+        .wf-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
         .wf-step { text-align: center; }
         .wf-num {
-            width: 45px; height: 45px; background: var(--gold-main); color: var(--purple-dark);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; font-weight: 700; margin: 0 auto 1.2rem;
+            width: 45px; height: 45px;
+            background: var(--gold-main);
+            color: var(--purple-dark);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 auto 1.2rem;
         }
-        .wf-step h5 { font-size: 1.05rem; color: var(--bg-white); margin-bottom: 0.6rem; font-weight: 600; }
-        .wf-step p { font-size: 0.85rem; color: #E2DFEB; line-height: 1.5; }
+        .wf-step h5 {
+            font-size: 1.05rem;
+            color: var(--bg-white);
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+        .wf-step p {
+            font-size: 0.85rem;
+            color: #E2DFEB;
+            line-height: 1.5;
+        }
 
-        footer { background: #1A1A24; color: #BDB5CE; padding: 4rem 0 2rem; border-top: 4px solid var(--gold-main); }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2rem; }
+        footer {
+            background: #1A1A24;
+            color: #BDB5CE;
+            padding: 4rem 0 2rem;
+            border-top: 4px solid var(--purple-main);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        .footer-brand .logo-text h1 { color: var(--bg-white); }
         .footer-brand p { margin-top: 1rem; max-width: 400px; font-size: 0.9rem;}
-        .footer-title { color: var(--bg-white); font-size: 1rem; font-weight: 600; margin-bottom: 1.2rem; }
+        .footer-title {
+            color: var(--bg-white);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+        }
         .footer-list { list-style: none; font-size: 0.9rem;}
         .footer-list li { margin-bottom: 0.8rem; display: flex; gap: 8px; }
         .footer-list i { color: var(--gold-main); margin-top: 3px; }
         .footer-list a { color: #BDB5CE; text-decoration: none; transition: var(--transition); }
         .footer-list a:hover { color: var(--gold-main); }
-        .copyright { text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; }
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.8rem;
+        }
 
-        .empty-state { text-align: center; padding: 3rem 1rem; }
-        .empty-state i { font-size: 3rem; color: var(--border-light); margin-bottom: 1rem; }
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .empty-state i {
+            font-size: 3rem; color: var(--border-light);
+            margin-bottom: 1rem;
+        }
 
-        /* Responsiveness adjustments */
         @media (max-width: 1024px) {
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-grid .hero-image { display: none; }
             .trust-indicators { justify-content: center; }
             .services-grid, .wf-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: 1fr 1fr; }
+            .tech-metrics { grid-template-columns: repeat(2, 1fr); }
+            .tech-hub-layout { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 1rem 0;
+                box-shadow: var(--shadow-md);
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
             .services-grid, .wf-grid, .footer-grid { grid-template-columns: 1fr; }
+            .tech-metrics { grid-template-columns: 1fr; }
+            .tech-spec-grid { grid-template-columns: 1fr; }
             .catalog-container { padding: 1.5rem 1rem; }
-            .items-grid { grid-template-columns: 1fr; padding: 0.5rem; }
+            .items-grid { grid-template-columns: 1fr; }
             .cat-header { flex-direction: column; text-align: center; gap: 10px; }
             .cat-header-left { flex-direction: column; }
             .cat-toggle-icon { margin-top: 10px; }
@@ -438,8 +887,8 @@
     <nav id="navbar">
         <div class="container nav-inner">
             <a href="#" class="logo">
-                <!-- Pemanggilan File PNG Logo PT VMI -->
-                <img src="logo_vmi.png" alt="Logo PT VMI" class="vmi-logo-img" onerror="handleLogoFallback(this, 45)">
+                <!-- Pemanggilan File PNG Logo PT VMI beserta Failsafe -->
+                <img src="logo_vmi.png" alt="Logo PT VMI" class="vmi-logo-img" onerror="handleLogoFallback(this, 40)">
                 <div class="logo-text">
                     <h1>PT VMI</h1>
                     <span>Solusi Laboratorium Terpadu</span>
@@ -452,6 +901,7 @@
 
             <ul class="nav-links" id="nav-links">
                 <li><a href="#dukungan" onclick="document.getElementById('nav-links').classList.remove('active')">Dukungan Teknis</a></li>
+                <li><a href="#jaringan-teknisi" onclick="document.getElementById('nav-links').classList.remove('active')">Jaringan Teknisi</a></li>
                 <li><a href="#katalog" onclick="document.getElementById('nav-links').classList.remove('active')">Katalog Instrumen</a></li>
                 <li><a href="#alur-kerja" onclick="document.getElementById('nav-links').classList.remove('active')">Alur Pelaksanaan</a></li>
                 <a href="#kontak" class="btn-primary" onclick="document.getElementById('nav-links').classList.remove('active')">Hubungi Kami</a>
@@ -462,9 +912,9 @@
     <section class="hero">
         <div class="container hero-grid">
             <div class="hero-content fade-in-up">
-                <div class="hero-badge"><i class="fa-solid fa-building-circle-check"></i> Mitra Pengadaan Alat Laboratorium</div>
+                <div class="hero-badge"><i class="fa-solid fa-building-circle-check"></i> Mitra Pengadaan Laboratorium</div>
                 <h2>Penyedia Instrumen Laboratorium <span>Terintegrasi</span></h2>
-                <p>Kami mendistribusikan alat laboratorium dan memastikan setiap perangkat beroperasi dengan spesifikasi pabrikan melalui layanan instalasi, pelatihan, dan dukungan purnajual berkelanjutan.</p>
+                <p>Kami mendistribusikan alat laboratorium dan memastikan setiap perangkat beroperasi sesuai spesifikasi pabrikan melalui layanan instalasi, pelatihan, dan dukungan purnajual berkelanjutan.</p>
                 <div class="trust-indicators">
                     <div class="trust-item">
                         <div class="trust-icon"><i class="fa-solid fa-file-contract"></i></div>
@@ -485,9 +935,8 @@
             <div class="hero-image fade-in-up" style="transition-delay: 0.2s;">
                 <div style="position: relative; width: 100%; aspect-ratio: 1; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%); display: flex; align-items: center; justify-content: center;">
                     <div style="width: 220px; height: 220px; border-radius: 50%; border: 1px dashed rgba(212,175,55,0.4); animation: spin 25s linear infinite; position: absolute;"></div>
-                    <div style="width: 150px; height: 150px; border-radius: 50%; background: var(--bg-white); box-shadow: 0 0 30px rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; z-index: 2;">
-                        <!-- Pemanggilan File PNG di Hero Image -->
-                        <img src="logo_vmi.png" alt="VMI Mark" style="height: 90px; width: auto; object-fit: contain;" onerror="handleLogoFallback(this, 90)">
+                    <div style="width: 150px; height: 150px; border-radius: 50%; background: var(--gold-main); display: flex; align-items: center; justify-content: center; z-index: 2;">
+                        <i class="fa-solid fa-flask-vial" style="font-size: 4rem; color: var(--purple-dark);"></i>
                     </div>
                 </div>
                 <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
@@ -506,28 +955,28 @@
                 <div class="service-card fade-in-up" id="dukungan-1" style="transition-delay: 0.1s;">
                     <div class="service-icon"><i class="fa-solid fa-boxes-packing"></i></div>
                     <h3>1. Instalasi Instrumen</h3>
-                    <p>Pemasangan alat mengikuti standar kualifikasi pabrikan dan verifikasi kondisi kelistrikan ruangan.</p>
+                    <p>Pemasangan alat mengikuti standar kualifikasi operasional pabrikan dan verifikasi kelistrikan ruang.</p>
                     <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> Pelaksanaan Protokol IQ/OQ/PQ</li>
-                        <li><i class="fa-solid fa-check"></i> Verifikasi Lingkungan Penempatan</li>
+                        <li><i class="fa-solid fa-check"></i> Protokol Kualifikasi (IQ/OQ/PQ)</li>
+                        <li><i class="fa-solid fa-check"></i> Uji Fungsi dan Kalibrasi Awal</li>
                     </ul>
                 </div>
                 <div class="service-card fade-in-up" id="dukungan-2" style="transition-delay: 0.2s;">
                     <div class="service-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
                     <h3>2. Pelatihan Pengguna</h3>
-                    <p>Pelatihan operasional oleh ahli aplikasi agar analis mampu mengoperasikan instrumen secara mandiri.</p>
+                    <p>Transfer pengetahuan operasional untuk memastikan petugas laboratorium mampu mengoperasikan instrumen.</p>
                     <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> Panduan Operasional Dasar</li>
-                        <li><i class="fa-solid fa-check"></i> Panduan Identifikasi Kendala</li>
+                        <li><i class="fa-solid fa-check"></i> Pengoperasian dan Pemrosesan Sampel</li>
+                        <li><i class="fa-solid fa-check"></i> Penanganan Kendala Ringan</li>
                     </ul>
                 </div>
                 <div class="service-card fade-in-up" id="dukungan-3" style="transition-delay: 0.3s;">
                     <div class="service-icon"><i class="fa-solid fa-clipboard-check"></i></div>
                     <h3>3. Perawatan Berkala</h3>
-                    <p>Pemeliharaan rutin dan terjadwal untuk mempertahankan tingkat akurasi hasil pengujian spesimen.</p>
+                    <p>Pemeliharaan instrumen yang terjadwal untuk menjaga tingkat akurasi hasil pengujian.</p>
                     <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> Kalibrasi Jadwal Teratur</li>
-                        <li><i class="fa-solid fa-check"></i> Pembersihan Komponen Sensitif</li>
+                        <li><i class="fa-solid fa-check"></i> Jadwal Kalibrasi dan Validasi</li>
+                        <li><i class="fa-solid fa-check"></i> Pembersihan Sensor Optik</li>
                     </ul>
                 </div>
                 <div class="service-card fade-in-up" id="dukungan-4" style="transition-delay: 0.4s;">
@@ -538,6 +987,44 @@
                         <li><i class="fa-solid fa-check"></i> Pemeriksaan Lapangan Efisien</li>
                         <li><i class="fa-solid fa-check"></i> Jaminan Ketersediaan Komponen</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding technician-section" id="jaringan-teknisi">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <span class="section-subtitle">Kesiapan Dukungan Nasional</span>
+                <h2 class="section-title">Sebaran Teknisi di Seluruh Indonesia</h2>
+            </div>
+
+            <div class="tech-metrics fade-in-up">
+                <div class="metric-card">
+                    <span class="metric-val">48+</span>
+                    <span class="metric-label">Teknisi & Application Specialist</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-val">38</span>
+                    <span class="metric-label">Provinsi Terlayani Siaga</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-val">6</span>
+                    <span class="metric-label">Hub Layanan Regional</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-val">&lt; 24 Jam</span>
+                    <span class="metric-label">Target Kedatangan Lokasi Darurat</span>
+                </div>
+            </div>
+
+            <div class="tech-hub-layout fade-in-up">
+                <div class="zone-list" id="zoneListContainer">
+                    <!-- Tombol daftar zona dihasilkan via JS -->
+                </div>
+
+                <div class="zone-detail-card" id="zoneDetailCard">
+                    <!-- Konten detail zona aktif dirender via JS -->
                 </div>
             </div>
         </div>
@@ -558,12 +1045,12 @@
                     </div>
                     
                     <div class="filter-wrapper" id="filterContainer">
-                        <!-- Filter buttons generated via JS -->
+                        <!-- Tombol Filter Dihasilkan via JS -->
                     </div>
                 </div>
 
                 <div id="catalogContent">
-                    <!-- Collapsible Catalog Groups Generated via JS -->
+                    <!-- Akordeon Kategori dan Kartu Alat Dihasilkan via JS -->
                 </div>
             </div>
         </div>
@@ -574,28 +1061,28 @@
             <div class="workflow fade-in-up">
                 <div class="section-header" style="margin-bottom: 2.5rem;">
                     <span class="section-subtitle" style="color: var(--gold-light);">Standar Pelaksanaan</span>
-                    <h2 class="section-title" style="color: var(--bg-white);">Alur Kerja Penanganan</h2>
+                    <h2 class="section-title" style="color: var(--bg-white);">Alur Kerja dan Target Waktu Penyelesaian</h2>
                 </div>
                 <div class="wf-grid">
                     <div class="wf-step">
                         <div class="wf-num">1</div>
                         <h5>Pemeriksaan Lokasi</h5>
-                        <p>Evaluasi kesiapan infrastruktur ruang dan kelistrikan sebelum instrumen dikirim.</p>
+                        <p>Evaluasi infrastruktur ruang dan kelistrikan laboratorium sebelum jadwal pengiriman alat.</p>
                     </div>
                     <div class="wf-step">
                         <div class="wf-num">2</div>
                         <h5>Pengiriman & Pemasangan</h5>
-                        <p>Distribusi barang sesuai panduan mutu, penempatan alat, dan instalasi awal.</p>
+                        <p>Distribusi barang sesuai standar mutu, pembukaan kemasan, dan penempatan alat oleh tim teknis.</p>
                     </div>
                     <div class="wf-step">
                         <div class="wf-num">3</div>
                         <h5>Uji Fungsi (Commissioning)</h5>
-                        <p>Verifikasi operasional, kalibrasi parameter awal, serta pelatihan staf pelaksana.</p>
+                        <p>Pelaksanaan pengujian operasional alat, validasi kalibrasi awal, serta pelatihan staf laboratorium.</p>
                     </div>
                     <div class="wf-step">
                         <div class="wf-num">4</div>
-                        <h5>Layanan Purnajual</h5>
-                        <p>Penanganan keluhan operasional dan penyediaan layanan servis berkelanjutan.</p>
+                        <h5>Dukungan Teknis Lanjutan</h5>
+                        <p>Pelayanan keluhan operasional dengan standar respons keluhan awal yang terjadwal.</p>
                     </div>
                 </div>
             </div>
@@ -605,69 +1092,80 @@
     <footer id="kontak">
         <div class="container footer-grid">
             <div class="footer-brand">
-                <a href="#" class="logo" style="margin-bottom: 1rem;">
-                    <!-- Pemanggilan File PNG di Footer -->
-                    <img src="logo_vmi.png" alt="Logo PT VMI" style="height: 35px; width: auto; background: white; padding: 4px; border-radius: 4px; object-fit: contain;" onerror="handleLogoFallback(this, 35)">
-                    <div class="logo-text">
-                        <h1 style="color: white; font-size: 1.2rem;">PT VMI</h1>
-                        <span style="color: var(--gold-main); font-size: 0.65rem;">Solusi Laboratorium Terpadu</span>
+                <div class="logo-text" style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
+                    <!-- Pemanggilan Logo PNG di Footer -->
+                    <img src="logo_vmi.png" alt="Logo PT VMI" style="width: 30px; height: 30px; object-fit: contain;" onerror="handleLogoFallback(this, 30)">
+                    <div>
+                        <h1 style="font-size: 1.1rem; line-height: 1; color: var(--bg-white);">PT VMI</h1>
+                        <span style="color: var(--gold-main); font-size: 0.65rem; font-weight: 500;">Solusi Laboratorium Terpadu</span>
                     </div>
-                </a>
-                <p>Mitra pengadaan laboratorium terpadu, menghadirkan instrumen presisi dengan standar dukungan purnajual untuk kelancaran fasilitas operasional Anda.</p>
+                </div>
+                <p>Mitra pengadaan alat laboratorium terpadu, menghadirkan instrumen analitik dengan dukungan purnajual berkelanjutan untuk kelancaran riset dan diagnostik fasilitas Anda.</p>
             </div>
             <div>
-                <h4 class="footer-title">Area Spesialisasi</h4>
+                <h4 class="footer-title">Area Layanan Pengadaan</h4>
                 <ul class="footer-list">
                     <li><i class="fa-solid fa-angle-right"></i> Biologi Molekuler</li>
                     <li><i class="fa-solid fa-angle-right"></i> Analisis Kimia & Spektroskopi</li>
-                    <li><i class="fa-solid fa-angle-right"></i> Patologi Klinik & Hematologi</li>
+                    <li><i class="fa-solid fa-angle-right"></i> Patologi Klinik & Imunologi</li>
                     <li><i class="fa-solid fa-angle-right"></i> Mikrobiologi & Inkubasi</li>
-                    <li><i class="fa-solid fa-angle-right"></i> Pemantauan Lingkungan</li>
+                    <li><i class="fa-solid fa-angle-right"></i> Pemantauan Kualitas Lingkungan</li>
                 </ul>
             </div>
             <div>
                 <h4 class="footer-title">Informasi Kontak</h4>
                 <ul class="footer-list">
-                    <li><i class="fa-solid fa-location-dot"></i> <span>Jakarta / Bekasi, Indonesia</span></li>
+                    <li><i class="fa-solid fa-location-dot"></i> <span>Kawasan Bisnis, Jakarta / Bekasi, Indonesia</span></li>
                     <li><i class="fa-solid fa-phone"></i> <span>+62 21 8900 1234 (Kantor)</span></li>
-                    <li><i class="fa-solid fa-envelope"></i> <span>pengadaan@ptvmi.co.id</span></li>
+                    <li><i class="fa-solid fa-envelope"></i> <span>pengadaan@vmi.co.id</span></li>
                 </ul>
             </div>
         </div>
         <div class="copyright container">
-            &copy; 2026 PT VMI. Seluruh hak cipta dilindungi undang-undang.
+            &copy; 2026 PT VMI. Disusun sebagai profil perusahaan dan panduan teknis pengadaan.
         </div>
     </footer>
 
     <script>
-        // Data Kategori dengan Tema Warna dan Ikon
+        // Fungsi Failsafe untuk Gambar PNG yang Gagal Dimuat
+        function handleLogoFallback(imgElement, size) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'fallback-logo-icon';
+            wrapper.style.width = size + 'px';
+            wrapper.style.height = size + 'px';
+            wrapper.innerHTML = '<i class="fa-solid fa-microscope"></i>';
+            imgElement.parentNode.replaceChild(wrapper, imgElement);
+        }
+
+        // Data Deskripsi dan Ikon Kategori Katalog
         const categoryDetails = {
             "Biologi Molekuler & Genomika": {
-                icon: "fa-dna", bg: "#F4F0FA", color: "#4A2B82",
+                icon: "fa-dna",
                 desc: "Instrumen ekstraksi, amplifikasi, deteksi asam nukleat, serta sekuensing genetik."
             },
             "Mikrobiologi, Kultur, & Biosafety": {
-                icon: "fa-bacteria", bg: "#E8F5E9", color: "#2E7D32",
-                desc: "Sistem inkubasi, identifikasi mikroorganisme, sterilisasi, serta kabinet biohazard."
+                icon: "fa-bacteria",
+                desc: "Sistem inkubasi, identifikasi mikroorganisme, sterilisasi, serta kabinet pelindung biohazard."
             },
             "Patologi Klinik, Imunologi, & Hematologi": {
-                icon: "fa-vial-virus", bg: "#FFEBEE", color: "#C62828",
-                desc: "Instrumen diagnostik analisis sel darah, imunologi, dan cairan tubuh."
+                icon: "fa-vial-virus",
+                desc: "Instrumen diagnostik untuk menganalisis komposisi sel darah, imunologi, dan cairan tubuh."
             },
             "Analisis Kimia Instrumen Lanjutan & Spektroskopi": {
-                icon: "fa-flask-vial", bg: "#FFF8E1", color: "#F57F17",
+                icon: "fa-flask-vial",
                 desc: "Perangkat pemisahan dan deteksi molekul analitik (Kromatografi dan Spektrometri)."
             },
             "Pengujian Kualitas Lingkungan, Air, & Udara": {
-                icon: "fa-wind", bg: "#E1F5FE", color: "#0277BD",
-                desc: "Alat uji kualitas fisika-kimia air, udara, serta parameter lingkungan."
+                icon: "fa-wind",
+                desc: "Alat uji kualitas fisika dan kimia air, pemantauan udara, serta parameter lingkungan."
             },
             "Peralatan Umum, Pendukung, & Cold Chain": {
-                icon: "fa-snowflake", bg: "#ECEFF1", color: "#455A64",
-                desc: "Sistem pendingin sampel, timbangan presisi, dan perlengkapan preparasi umum."
+                icon: "fa-snowflake",
+                desc: "Perangkat esensial laboratorium termasuk sistem pendingin, timbangan analitik, dan perlengkapan preparasi."
             }
         };
 
+        // Data Katalog Alat
         const rawCatalogData = {
             "Biologi Molekuler & Genomika": ["Real Time PCR", "Automatic Extractor", "Next Generation Sequencer (NGS) Long Read Sequencer", "Trans Illuminator Gel Electrophoresis", "PCR Konvensional", "Digital PCR", "Sanger sequencer", "Elektroforesis set", "Next Generation Sequencer (NGS) Short Read Sequencer", "Alat kuantifikasi DNA", "Sonicator chamber", "Tissue disruptor", "Bioinformatics System (computer dan Software)", "Oligosynthesizer", "Tes cepat molekuler"], 
             "Mikrobiologi, Kultur, & Biosafety": ["Mesin identifikasi dan uji kepekaan otomatik/microba analyzer", "Mycobacteriology analyzer for tuberculosis using Liquid media", "Endotoxin LAL Assay (Quantitative)", "Biosafety Cabinet Class II Type A2", "Automated Blood Culture System", "Laminar Air Flow", "Mikroskop Fluorescence", "Automated Colony Counter", "Inkubator CO2", "Stomacher", "Mikroskop Stereo", "Autoklaf Kering", "Mikroskop Inverted", "Mikroskop Lapangan Gelap", "Digital Colony Counter", "Biosafety Cabinet Class II Type B2", "Matrix-assited lasser desorption/ionization- time-of-flight (MALDI-TOF)", "Anaerobic Jar", "Inkubator", "Autoklaf Basah", "Teaching microscope", "Mikroskop Binokuler"], 
@@ -677,49 +1175,48 @@
             "Peralatan Umum, Pendukung, & Cold Chain": ["Rotator Plate", "Multi Channel Pipet (1-10 mikron, 10-100 mikron, 20-200 mikron, 100-1000 mikron - 8 row)", "Desiccator", "Dehumidifier", "Water purification system", "Lemari Asam", "Refrigerator Laboratory Grade (untuk reagen)", "Waterbath", "Deep Freezer (-80) with rack system (drawer)", "Temperature Monitoring system for refrigerator and freezer dengan notifikasi", "Freeze dry machine (cryopreservation)", "Refrigerated Centrifuge (ultra highspeed)", "Anak Timbangan Class F1 (1 mg – 2 kg)", "Spindown", "Heat block", "Shaker Plate", "Magnetic stand", "Lemari Reagen Flammable", "Rocking Shaker", "Pompa vakum (portable)", "Dispenser Pipet", "Refrigerated Centrifuge (highspeed)", "Oven", "Refrigerator Laboratory Grade (untuk sampel lingkungan dan makanan)", "Refrigerator Laboratory Grade (untuk Specimen)", "Freezer -20 with rack system", "Thermocouple", "Analytical Balance", "Analytical Balance micro", "Vortex", "Magnetic Stirer with hotplate", "Liquid Nitrogen Tank with canester", "Anak Timbangan standar E2 (1 mg – 2 kg),", "Mass Comparator", "PRT (Platinum Resistance Thermometer) dengan Read out", "Dry block", "Thermocouple dengan temperatur data logger min 10 channel (type K, type T, type RTD)", "Humidity Chamber", "Temperature and pressure data logger", "Mikropipet (0-2 mikron, 1-10 mikron, 10-100 mikron, 20-200 mikron, 100-1000 mikron) + Carousel"]
         };
 
-        // Fungsi Deteksi Ikon Spesifik untuk Alat
+        // Fungsi Deteksi Ikon & Deskripsi Cerdas Berdasarkan Nama Alat
         function getItemMetadata(itemName, categoryName) {
             let n = itemName.toLowerCase();
             let icon = 'fa-microscope';
-            let desc = 'Instrumen laboratorium operasional.';
+            let desc = 'Instrumen laboratorium.';
 
             if (n.includes('pcr') || n.includes('dna') || n.includes('sequencer') || n.includes('oligo')) {
-                icon = 'fa-dna'; desc = 'Perangkat deteksi dan amplifikasi genetik.';
+                icon = 'fa-dna'; desc = 'Alat deteksi genetik dan amplifikasi asam nukleat.';
             } else if (n.includes('mikroskop') || n.includes('microscope')) {
-                icon = 'fa-microscope'; desc = 'Fasilitas observasi sampel mikroskopis.';
+                icon = 'fa-microscope'; desc = 'Alat pengamatan struktur sampel mikroskopis.';
             } else if (n.includes('centrifuge') || n.includes('spindown')) {
-                icon = 'fa-fan'; desc = 'Peralatan pemisahan partikel cairan.';
+                icon = 'fa-fan'; desc = 'Pemutar sampel untuk proses pemisahan sentrifugal.';
             } else if (n.includes('freezer') || n.includes('refrigerator') || n.includes('cold') || n.includes('nitrogen') || n.includes('freeze')) {
-                icon = 'fa-snowflake'; desc = 'Penyimpanan suhu terkontrol (Cold Chain).';
+                icon = 'fa-snowflake'; desc = 'Penyimpanan sampel berbasis rantai dingin (Cold Chain).';
             } else if (n.includes('timbangan') || n.includes('balance') || n.includes('mass') || n.includes('comparator')) {
-                icon = 'fa-scale-balanced'; desc = 'Alat penimbang presisi analitik.';
+                icon = 'fa-scale-balanced'; desc = 'Perangkat ukur presisi untuk penimbangan massa zat.';
             } else if (n.includes('autoklaf') || n.includes('inkubator') || n.includes('incubator') || n.includes('oven') || n.includes('block') || n.includes('waterbath')) {
-                icon = 'fa-temperature-half'; desc = 'Pengaturan pemanasan atau inkubasi.';
+                icon = 'fa-temperature-half'; desc = 'Alat pemanas, sterilisasi, atau inkubasi suhu konstan.';
             } else if (n.includes('cabinet') || n.includes('laminar') || n.includes('asam')) {
-                icon = 'fa-shield-virus'; desc = 'Area kerja aman untuk agen biologi/kimia.';
+                icon = 'fa-shield-virus'; desc = 'Fasilitas pelindung operator dari paparan biologis/kimia.';
             } else if (n.includes('air sampler') || n.includes('meter') || n.includes('detector') || n.includes('aqms') || n.includes('anemometer') || n.includes('test') || n.includes('sensor')) {
-                icon = 'fa-wind'; desc = 'Pemantauan parameter fisik atau udara.';
+                icon = 'fa-wind'; desc = 'Pemantau parameter kualitas fisik dan lingkungan.';
             } else if (n.includes('pipet') || n.includes('dispenser')) {
-                icon = 'fa-eye-dropper'; desc = 'Penanganan volume cairan (Liquid Handling).';
+                icon = 'fa-eye-dropper'; desc = 'Alat pemindahan volume cairan presisi (Liquid Handling).';
             } else if (n.includes('chromatography') || n.includes('hplc') || n.includes('gc-ms') || n.includes('icp') || n.includes('spectro') || n.includes('kromatografi')) {
-                icon = 'fa-wave-square'; desc = 'Instrumen spektroskopi dan pemisahan senyawa.';
+                icon = 'fa-wave-square'; desc = 'Alat analisis pemisahan senyawa dan spektroskopi analitik.';
             } else if (n.includes('analyzer') || n.includes('urine') || n.includes('blood') || n.includes('cytometer') || n.includes('assay') || n.includes('elisa')) {
-                icon = 'fa-vial'; desc = 'Diagnosis otomatis untuk spesimen klinis.';
+                icon = 'fa-vial'; desc = 'Peralatan diagnosis otomatis spesimen laboratorium klinik.';
             } else if (n.includes('shaker') || n.includes('stirer') || n.includes('vortex') || n.includes('rotator') || n.includes('stomacher') || n.includes('extractor') || n.includes('digester') || n.includes('evaporator')) {
-                icon = 'fa-blender'; desc = 'Fasilitas homogenisasi dan pencampuran.';
+                icon = 'fa-blender'; desc = 'Proses mekanis ekstraksi, pencampuran, atau homogenisasi.';
             } else if (n.includes('water') && (n.includes('purification') || n.includes('filter'))) {
-                icon = 'fa-faucet-drip'; desc = 'Pemurnian kualitas air laboratorium.';
+                icon = 'fa-faucet-drip'; desc = 'Perangkat pemurnian kualitas air standar laboratorium.';
             } else if (n.includes('logger') || n.includes('thermometer') || n.includes('thermocouple')) {
-                icon = 'fa-temperature-arrow-up'; desc = 'Pencatatan data parameter fisik.';
+                icon = 'fa-temperature-arrow-up'; desc = 'Perekam dan pembaca parameter suhu operasional.';
             } else if (n.includes('software') || n.includes('system')) {
-                icon = 'fa-laptop-code'; desc = 'Perangkat lunak analisis data.';
+                icon = 'fa-laptop-code'; desc = 'Perangkat keras atau sistem lunak analisis data.';
             } else {
                 icon = categoryDetails[categoryName].icon;
             }
             return { icon, desc };
         }
 
-        // DOM Elements
         const filterContainer = document.getElementById('filterContainer');
         const catalogContent = document.getElementById('catalogContent');
         const searchInput = document.getElementById('searchInput');
@@ -727,13 +1224,12 @@
         let currentFilter = 'All';
         let searchQuery = '';
 
-        // Membangun Tombol Filter
         function buildFilters() {
             let totalItems = 0;
             const catKeys = Object.keys(rawCatalogData);
             catKeys.forEach(k => totalItems += rawCatalogData[k].length);
 
-            let btnHTML = `<button class="filter-btn active" data-filter="All">Semua Kategori <span class="badge">${totalItems}</span></button>`;
+            let btnHTML = `<button class="filter-btn active" data-filter="All">Semua <span class="badge">${totalItems}</span></button>`;
             
             catKeys.forEach(cat => {
                 const shortName = cat.split(',')[0].split('&')[0].trim();
@@ -752,36 +1248,36 @@
             });
         }
 
-        // Interaksi Klik (Toggle Item Highlight)
-        window.toggleItemHighlight = function(element) {
-            element.classList.toggle('highlighted');
-        };
-
-        // Interaksi Accordion (Buka/Tutup Grup)
+        // Interaksi Toggle Kategori Katalog (Collapsible)
         window.toggleCategory = function(headerElement) {
             const block = headerElement.parentElement;
             block.classList.toggle('expanded');
         };
 
-        // Membangun Tampilan Katalog
+        // Interaksi Klik Item Alat (Highlight)
+        window.toggleItemHighlight = function(element) {
+            element.classList.toggle('highlighted');
+        };
+
         function renderCatalog() {
             catalogContent.innerHTML = '';
             let isFound = false;
-
-            // Jika filter adalah 'All', grup default ditutup. Jika spesifik, dibuka.
-            const defaultExpandedClass = (currentFilter === 'All' && searchQuery === '') ? '' : 'expanded';
 
             for (const [categoryName, items] of Object.entries(rawCatalogData)) {
                 if (currentFilter !== 'All' && currentFilter !== categoryName) continue;
 
                 const filteredItems = items.filter(item => item.toLowerCase().includes(searchQuery.toLowerCase()));
                 if (filteredItems.length === 0) continue;
-                
                 isFound = true;
+
                 const catMeta = categoryDetails[categoryName];
 
                 const groupDiv = document.createElement('div');
-                groupDiv.className = `category-block ${defaultExpandedClass}`;
+                groupDiv.className = 'category-block';
+                // Otomatis expand jika difilter atau jika ada pencarian, jika "All" biarkan tertutup (kecuali saat ada teks pencarian)
+                if (currentFilter !== 'All' || searchQuery !== '') {
+                    groupDiv.classList.add('expanded');
+                }
                 
                 let cardsHTML = '';
                 filteredItems.forEach(itemName => {
@@ -789,11 +1285,8 @@
                     
                     cardsHTML += `
                         <div class="item-card" onclick="toggleItemHighlight(this)">
-                            <i class="fa-solid fa-circle-check highlight-check"></i>
                             <div class="item-card-top">
-                                <div class="item-icon" style="background:${catMeta.bg}; color:${catMeta.color}">
-                                    <i class="fa-solid ${meta.icon}"></i>
-                                </div>
+                                <div class="item-icon"><i class="fa-solid ${meta.icon}"></i></div>
                                 <div class="item-info">
                                     <h5 class="item-name">${itemName}</h5>
                                     <p class="item-function">${meta.desc}</p>
@@ -801,11 +1294,11 @@
                             </div>
                             <div class="item-footer">
                                 <span class="status-badge"><i class="fa-solid fa-check"></i> Siap Pasang</span>
-                                <div class="support-links" title="Klik untuk panduan Dukungan Teknis">
-                                    <a href="#dukungan-1" class="support-link" onclick="event.stopPropagation()" title="Instalasi"><i class="fa-solid fa-boxes-packing"></i></a>
-                                    <a href="#dukungan-2" class="support-link" onclick="event.stopPropagation()" title="Pelatihan"><i class="fa-solid fa-chalkboard-user"></i></a>
-                                    <a href="#dukungan-3" class="support-link" onclick="event.stopPropagation()" title="Perawatan"><i class="fa-solid fa-clipboard-check"></i></a>
-                                    <a href="#dukungan-4" class="support-link" onclick="event.stopPropagation()" title="Perbaikan"><i class="fa-solid fa-screwdriver-wrench"></i></a>
+                                <div class="support-links" title="Pilih ikon untuk melompat ke detail dukungan teknis">
+                                    <a href="#dukungan-1" class="support-link" title="Dukungan Instalasi" onclick="event.stopPropagation();"><i class="fa-solid fa-boxes-packing"></i></a>
+                                    <a href="#dukungan-2" class="support-link" title="Dukungan Pelatihan" onclick="event.stopPropagation();"><i class="fa-solid fa-chalkboard-user"></i></a>
+                                    <a href="#dukungan-3" class="support-link" title="Dukungan Perawatan Berkala" onclick="event.stopPropagation();"><i class="fa-solid fa-clipboard-check"></i></a>
+                                    <a href="#dukungan-4" class="support-link" title="Dukungan Perbaikan Alat" onclick="event.stopPropagation();"><i class="fa-solid fa-screwdriver-wrench"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -815,17 +1308,17 @@
                 groupDiv.innerHTML = `
                     <div class="cat-header" onclick="toggleCategory(this)">
                         <div class="cat-header-left">
-                            <div class="cat-icon" style="background:${catMeta.bg}; color:${catMeta.color}">
-                                <i class="fa-solid ${catMeta.icon}"></i>
-                            </div>
+                            <div class="cat-icon"><i class="fa-solid ${catMeta.icon}"></i></div>
                             <div class="cat-title">
                                 <h4>${categoryName}</h4>
                                 <p>${filteredItems.length} Instrumen Ditemukan</p>
                             </div>
                         </div>
-                        <i class="fa-solid fa-chevron-down cat-toggle-icon"></i>
+                        <div class="cat-toggle-icon">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
                     </div>
-                    <div class="cat-content-wrapper">
+                    <div class="cat-content">
                         <div class="cat-content-inner">
                             <div class="items-grid">
                                 ${cardsHTML}
@@ -842,7 +1335,7 @@
                     <div class="empty-state">
                         <i class="fa-solid fa-magnifying-glass-minus"></i>
                         <h3 style="color: var(--purple-dark); margin-bottom: 8px;">Instrumen tidak ditemukan</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Kata kunci pencarian tidak cocok. Silakan coba kembali.</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Kata kunci tidak sesuai. Silakan coba kembali dengan istilah teknis lainnya.</p>
                     </div>
                 `;
             }
@@ -853,31 +1346,157 @@
             renderCatalog();
         });
 
-        // Menangani proteksi tampilan jika file PNG belum selesai di-cache atau terunggah
-        function handleLogoFallback(imgElement, size = 45) {
-            imgElement.onerror = null;
-            const svgFallback = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="${size}" height="${size}" style="display:block; flex-shrink:0;">
-                    <defs>
-                        <linearGradient id="blueGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#1d4ed8" />
-                            <stop offset="100%" stop-color="#3b82f6" />
-                        </linearGradient>
-                        <linearGradient id="greenGradNav" x1="0%" y1="100%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#84cc16" />
-                            <stop offset="100%" stop-color="#06b6d4" />
-                        </linearGradient>
-                    </defs>
-                    <polygon points="30,360 30,160 80,220 80,360" fill="url(#blueGradNav)"/>
-                    <polygon points="260,360 260,260 310,200 310,360" fill="url(#blueGradNav)"/>
-                    <polygon points="10,150 60,130 190,340 140,370" fill="url(#greenGradNav)"/>
-                    <polygon points="140,370 190,340 350,90 300,120" fill="url(#greenGradNav)"/>
-                    <polygon points="370,40 370,150 260,40" fill="url(#greenGradNav)"/>
-                </svg>`;
-            imgElement.outerHTML = svgFallback;
+        // Data Sebaran Teknisi Regional Indonesia
+        const technicianRegionalData = {
+            "jawa_bali": {
+                name: "Jawa & Bali",
+                hub: "Jakarta, Bekasi & Surabaya",
+                engineers: 22,
+                sla: "Maksimal 6 - 12 Jam",
+                desc: "Pusat logistik utama suku cadang, bengkel kalibrasi terstandar, dan tim spesialis aplikasi molekuler serta kromatografi.",
+                provinces: ["DKI Jakarta", "Jawa Barat", "Banten", "Jawa Tengah", "DI Yogyakarta", "Jawa Timur", "Bali"],
+                capabilities: [
+                    { title: "Kualifikasi IQ/OQ/PQ", text: "Tim terlatih pabrikan untuk instrumen molekuler dan spektroskopi analitik." },
+                    { title: "Bengkel & Kalibrasi", text: "Workshop pengujian dan pengetesan sensor serta buffer stock komponen utama." }
+                ]
+            },
+            "sumatera": {
+                name: "Sumatera",
+                hub: "Medan, Palembang & Pekanbaru",
+                engineers: 9,
+                sla: "Maksimal 12 - 24 Jam",
+                desc: "Siaga melayani fasilitas laboratorium klinik, rumah sakit daerah, balai lingkungan hidup, dan universitas di seluruh pulau Sumatera.",
+                provinces: ["Aceh", "Sumatera Utara", "Sumatera Barat", "Riau", "Kepulauan Riau", "Jambi", "Sumatera Selatan", "Bangka Belitung", "Bengkulu", "Lampung"],
+                capabilities: [
+                    { title: "Dukungan Lapangan", text: "Penanganan cepat kalibrasi rutin dan pemeliharaan alat biosafety cabinet serta autoclave." },
+                    { title: "Pelatihan Analis", text: "Fasilitas pelatihan operasional hematologi dan urinalisis di lokasi faskes." }
+                ]
+            },
+            "kalimantan": {
+                name: "Kalimantan",
+                hub: "Balikpapan & Banjarmasin",
+                engineers: 6,
+                sla: "Maksimal 12 - 24 Jam",
+                desc: "Fokus pada pengujian laboratorium industri, mikrobiologi, pemantauan kualitas air, dan instrumen lingkungan hidup.",
+                provinces: ["Kalimantan Timur", "Kalimantan Selatan", "Kalimantan Barat", "Kalimantan Tengah", "Kalimantan Utara"],
+                capabilities: [
+                    { title: "Uji Instrumen Lingkungan", text: "Spesialisasi alat pemantauan kualitas udara (AQMS, air sampler) dan spektrofotometri." },
+                    { title: "Penyediaan Komponen", text: "Ketersediaan suku cadang cepat melalui hub logistik Balikpapan." }
+                ]
+            },
+            "sulawesi": {
+                name: "Sulawesi",
+                hub: "Makassar & Manado",
+                engineers: 6,
+                sla: "Maksimal 12 - 24 Jam",
+                desc: "Pintu gerbang pelayanan Indonesia Timur untuk instalasi terpadu rumah sakit umum daerah, laboratorium patologi, dan riset biologi.",
+                provinces: ["Sulawesi Selatan", "Sulawesi Utara", "Sulawesi Tengah", "Sulawesi Tenggara", "Gorontalo", "Sulawesi Barat"],
+                capabilities: [
+                    { title: "Commissioning Alat", text: "Instalasi presisi sistem rantai dingin (Cold Chain -80°C) dan automated analyzer." },
+                    { title: "Perawatan Berkala", text: "Paket kontrak servis preventif berkala untuk menjaga akurasi hasil spesimen." }
+                ]
+            },
+            "nusa_tenggara": {
+                name: "Nusa Tenggara",
+                hub: "Denpasar & Kupang",
+                engineers: 3,
+                sla: "Maksimal 18 - 24 Jam",
+                desc: "Menjangkau seluruh rumah sakit dan laboratorium kesehatan daerah di kepulauan Nusa Tenggara Barat dan Timur.",
+                provinces: ["Nusa Tenggara Barat", "Nusa Tenggara Timur"],
+                capabilities: [
+                    { title: "Layanan Kunjungan", text: "Kunjungan terjadwal untuk perawatan centrifuge, inkubator, dan mikroskop." },
+                    { title: "Hotline Respons Cepat", text: "Konsultasi teknis awal via sambungan jarak jauh dalam waktu kurang dari 2 jam." }
+                ]
+            },
+            "maluku_papua": {
+                name: "Maluku & Papua",
+                hub: "Ambon & Jayapura",
+                engineers: 4,
+                sla: "Maksimal 24 - 48 Jam",
+                desc: "Komitmen pemerataan layanan teknis hingga fasilitas kesehatan dan laboratorium di wilayah terluar dan pegunungan.",
+                provinces: ["Maluku", "Maluku Utara", "Papua", "Papua Barat", "Papua Selatan", "Papua Tengah", "Papua Pegunungan", "Papua Barat Daya"],
+                capabilities: [
+                    { title: "Pendampingan Pemasangan", text: "Supervisi penempatan alat sesuai ketahanan tegangan listrik daerah." },
+                    { title: "Pelatihan Mandiri Operator", text: "Pemberian buku panduan dan modul perbaikan mandiri gangguan ringan." }
+                ]
+            }
+        };
+
+        let currentActiveZone = "jawa_bali";
+
+        function renderTechnicianZones() {
+            const container = document.getElementById('zoneListContainer');
+            if(!container) return;
+            container.innerHTML = '';
+
+            for (const [key, data] of Object.entries(technicianRegionalData)) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `zone-btn ${key === currentActiveZone ? 'active' : ''}`;
+                btn.onclick = () => {
+                    currentActiveZone = key;
+                    renderTechnicianZones();
+                    renderZoneDetail();
+                };
+
+                btn.innerHTML = `
+                    <div class="zone-btn-left">
+                        <div class="zone-badge-dot"></div>
+                        <div>
+                            <div class="zone-btn-title">${data.name}</div>
+                            <div class="zone-btn-count">Hub: ${data.hub}</div>
+                        </div>
+                    </div>
+                    <span class="zone-btn-tag">${data.engineers} Teknisi Siaga</span>
+                `;
+                container.appendChild(btn);
+            }
         }
 
-        // Observer untuk Animasi Fade-in
+        function renderZoneDetail() {
+            const detailCard = document.getElementById('zoneDetailCard');
+            if(!detailCard) return;
+
+            // Trigger reflow for animation
+            detailCard.style.animation = 'none';
+            detailCard.offsetHeight; /* trigger reflow */
+            detailCard.style.animation = 'fadeIn 0.4s ease-in-out';
+
+            const current = technicianRegionalData[currentActiveZone];
+            const provHtml = current.provinces.map(p => `
+                <span class="prov-tag"><i class="fa-solid fa-map-pin"></i> ${p}</span>
+            `).join('');
+
+            const capHtml = current.capabilities.map(c => `
+                <div class="tech-spec-item">
+                    <h5><i class="fa-solid fa-circle-check" style="color: var(--gold-dark);"></i> ${c.title}</h5>
+                    <p>${c.text}</p>
+                </div>
+            `).join('');
+
+            detailCard.innerHTML = `
+                <div class="zone-detail-header">
+                    <div class="zone-detail-title">
+                        <h4>Regional ${current.name}</h4>
+                        <p><i class="fa-solid fa-building"></i> Kantor Hub: <strong>${current.hub}</strong> &bull; ${current.engineers} Teknisi Tersertifikasi</p>
+                    </div>
+                    <span class="sla-pill" title="Target Waktu Respons Lapangan">
+                        <i class="fa-solid fa-bolt" style="color: var(--gold-main);"></i> Kehadiran: ${current.sla}
+                    </span>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 1rem; line-height: 1.5;">${current.desc}</p>
+                <div style="margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--purple-dark);">
+                    Cakupan Wilayah Provinsi Terjangkau:
+                </div>
+                <div class="province-tags">
+                    ${provHtml}
+                </div>
+                <div class="tech-spec-grid">
+                    ${capHtml}
+                </div>
+            `;
+        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
@@ -889,10 +1508,11 @@
         window.addEventListener('DOMContentLoaded', () => {
             buildFilters();
             renderCatalog();
+            renderTechnicianZones();
+            renderZoneDetail();
             
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
-            // Efek Navbar saat scroll
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
                 if(window.scrollY > 50) {
