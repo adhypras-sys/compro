@@ -2,47 +2,80 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT VMI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>PT VMI - Solusi Laboratorium Terpadu</title>
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        // Fungsi Failsafe Logo: Aktif jika file logo_vmi.png belum berada di folder/repo yang sama
+        function handleLogoFallback(imgElement, size) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'fallback-logo-icon';
+            wrapper.style.width = size + 'px';
+            wrapper.style.height = size + 'px';
+            wrapper.innerHTML = `
+                <svg viewBox="0 0 24 24" class="ui-icon" style="width: 22px; height: 22px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>
+                </svg>`;
+            imgElement.parentNode.replaceChild(wrapper, imgElement);
+        }
+    </script>
     
     <style>
         :root {
             --bg-white: #ffffff;
-            --bg-offwhite: #fcfcfd;
+            --bg-offwhite: #f8f8fc;
+            --bg-subtle: #f3f1f8;
             
             --purple-dark: #2B1B4D;
             --purple-main: #4A2B82;
             --purple-light: #F4F0FA;
             
             --gold-main: #D4AF37;
-            --gold-light: #F9F3DF;
+            --gold-light: #FBF8EE;
             --gold-dark: #AA8C2C;
             
             --text-dark: #1A1A24;
-            --text-muted: #4B4B5C;
+            --text-muted: #555566;
             
             --border-light: rgba(74, 43, 130, 0.12);
-            --border-gold: rgba(212, 175, 55, 0.3);
+            --border-gold: rgba(212, 175, 55, 0.4);
             
-            --shadow-sm: 0 2px 4px rgba(43, 27, 77, 0.04);
-            --shadow-md: 0 8px 12px rgba(43, 27, 77, 0.06);
-            --shadow-lg: 0 12px 24px rgba(43, 27, 77, 0.1);
+            --radius-card: 14px;
+            --radius-sm: 8px;
+            --radius-pill: 50px;
             
-            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(43, 27, 77, 0.05);
+            --shadow-md: 0 8px 20px rgba(43, 27, 77, 0.08);
+            --shadow-lg: 0 16px 36px rgba(43, 27, 77, 0.12);
+            
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            overflow-x: hidden;
+            width: 100%;
+        }
 
-        * {
+        *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Outfit', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button {
+            color: var(--text-dark);
+            font-family: inherit;
+            border: none;
+            background: none;
+            -webkit-appearance: none;
         }
 
         body {
@@ -50,15 +83,38 @@
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
+        /* Standardisasi SVG Icon Universal (Bebas Masalah X) */
+        .ui-icon {
+            display: inline-block;
+            vertical-align: middle;
+            width: 1.15em;
+            height: 1.15em;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        /* Container & Pembatas Seksi Konsisten */
         .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            width: 100%;
+            max-width: 1240px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
         }
         
-        .section-padding { padding: 5rem 0; }
+        .section-padding { 
+            padding: 5.5rem 0; 
+            position: relative;
+        }
 
         .fade-in-up {
             opacity: 0;
@@ -70,10 +126,15 @@
             transform: translateY(0);
         }
 
+        /* Navigasi */
         nav {
             position: fixed;
-            top: 0; width: 100%;
+            top: 0; 
+            left: 0;
+            width: 100%;
             background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-light);
             z-index: 1000;
             transition: var(--transition);
@@ -83,7 +144,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
+            height: 72px;
         }
 
         .logo {
@@ -91,40 +152,53 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
+            min-width: 0;
         }
 
         .vmi-logo-img {
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             object-fit: contain;
+            display: block;
+            flex-shrink: 0;
         }
 
         .fallback-logo-icon {
             background: var(--purple-dark);
             color: var(--gold-main);
-            width: 40px; height: 40px;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem;
+            width: 42px; 
+            height: 42px;
+            border-radius: var(--radius-sm);
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
         }
 
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
         .logo-text h1 {
             color: var(--purple-dark);
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 800;
             line-height: 1.1;
+            letter-spacing: -0.3px;
         }
         .logo-text span {
             color: var(--gold-dark);
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.8rem;
             list-style: none;
             align-items: center;
         }
@@ -132,9 +206,10 @@
         .nav-links a {
             text-decoration: none;
             color: var(--text-dark);
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.95rem;
             transition: var(--transition);
+            padding: 0.4rem 0.2rem;
         }
 
         .nav-links a:hover { color: var(--purple-main); }
@@ -142,63 +217,88 @@
         .btn-primary {
             background: var(--gold-main);
             color: var(--purple-dark) !important;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 600;
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.92rem;
             border: none;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             transition: var(--transition);
+            white-space: nowrap;
         }
         .btn-primary:hover {
             background: var(--gold-dark);
             color: var(--bg-white) !important;
+            box-shadow: 0 4px 14px rgba(170, 140, 44, 0.3);
+            transform: translateY(-2px);
         }
 
         .mobile-menu-btn {
             display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-sm);
+            background: var(--purple-light);
             color: var(--purple-dark);
             cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .mobile-menu-btn:hover {
+            background: var(--purple-main);
+            color: #ffffff;
         }
 
+        /* Hero Section */
         .hero {
-            padding-top: 120px;
-            padding-bottom: 60px;
+            padding-top: 135px;
+            padding-bottom: 70px;
             background: var(--purple-dark);
             color: var(--bg-white);
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--gold-main), rgba(212, 175, 55, 0.2));
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.5rem;
             align-items: center;
         }
 
         .hero-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(212,175,55,0.5);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-gold);
             color: var(--gold-light);
-            padding: 0.4rem 1rem;
-            border-radius: 6px;
+            padding: 0.45rem 1.15rem;
+            border-radius: var(--radius-pill);
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 1.5rem;
         }
 
         .hero-content h2 {
-            font-size: 3rem;
+            font-size: clamp(2.1rem, 4vw, 3.1rem);
             line-height: 1.2;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
+            margin-bottom: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
         
         .hero-content h2 span { color: var(--gold-main); }
@@ -206,14 +306,15 @@
         .hero-content p {
             font-size: 1.05rem;
             color: #E2DFEB;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            max-width: 90%;
+            margin-bottom: 2.2rem;
+            line-height: 1.65;
+            max-width: 580px;
         }
 
         .trust-indicators {
             display: flex;
-            gap: 2rem;
+            flex-wrap: wrap;
+            gap: 1.8rem;
         }
 
         .trust-item {
@@ -223,35 +324,65 @@
         }
         
         .trust-icon {
-            width: 40px; height: 40px;
-            border-radius: 6px;
+            width: 44px; 
+            height: 44px;
+            border-radius: var(--radius-sm);
             background: rgba(212,175,55,0.15);
             color: var(--gold-main);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             border: 1px solid rgba(212,175,55,0.3);
+            flex-shrink: 0;
         }
 
-        .trust-text h4 { font-size: 0.95rem; font-weight: 600; color: #fff;}
+        .trust-text h4 { font-size: 0.95rem; font-weight: 700; color: #fff;}
         .trust-text p { font-size: 0.8rem; color: #BDB5CE; margin: 0;}
 
+        /* Header Seksi Terstandar (Hirarki Jelas) */
         .section-header {
             text-align: center;
             margin-bottom: 3.5rem;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 1rem;
         }
-        .section-subtitle {
-            color: var(--gold-dark);
-            font-weight: 600;
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--purple-light);
+            color: var(--purple-main);
+            border: 1px solid var(--border-light);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-            display: block;
+            font-size: 0.78rem;
+            margin-bottom: 0.8rem;
         }
         .section-title {
             color: var(--purple-dark);
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.8rem;
+        }
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        /* ========================================================
+           BAGIAN 1: LAYANAN PURNAJUAL
+           ======================================================== */
+        .section-dukungan {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .services-grid {
@@ -261,86 +392,150 @@
         }
 
         .service-card {
-            background: var(--bg-white);
-            border-radius: 12px;
-            padding: 2rem 1.5rem;
+            background: var(--bg-offwhite);
+            border-radius: var(--radius-card);
+            padding: 2.2rem 1.6rem;
             border: 1px solid var(--border-light);
             box-shadow: var(--shadow-sm);
             transition: var(--transition);
             scroll-margin-top: 90px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--purple-main);
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .service-card:hover {
+            background: #ffffff;
             transform: translateY(-5px);
             box-shadow: var(--shadow-md);
             border-color: var(--gold-main);
         }
 
+        .service-card:hover::before {
+            opacity: 1;
+            background: linear-gradient(90deg, var(--purple-main), var(--gold-main));
+        }
+
+        .service-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
         .service-icon {
-            width: 50px; height: 50px;
+            width: 50px; 
+            height: 50px;
             background: var(--purple-light);
             color: var(--purple-main);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.2rem;
+            border-radius: var(--radius-sm);
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--purple-dark);
+            color: var(--gold-main);
+        }
+
+        .service-number {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--gold-dark);
+            background: var(--gold-light);
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .service-card h3 {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--purple-dark);
             margin-bottom: 0.8rem;
             font-weight: 700;
+            line-height: 1.35;
         }
 
         .service-card p {
             color: var(--text-muted);
             font-size: 0.9rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            line-height: 1.55;
         }
 
         .service-list {
             list-style: none;
             border-top: 1px solid var(--border-light);
-            padding-top: 1rem;
+            padding-top: 1.25rem;
+            margin-top: auto;
         }
 
         .service-list li {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            align-items: flex-start;
+            gap: 10px;
             font-size: 0.85rem;
             color: var(--text-dark);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.45;
         }
-        .service-list li i { color: var(--gold-dark); font-size: 0.8rem;}
+        .service-list li:last-child { margin-bottom: 0; }
+        .service-list li .bullet-icon { 
+            color: var(--gold-dark); 
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
 
-        .technician-section {
-            background: #ffffff;
-            border-top: 1px solid var(--border-light);
+        /* ========================================================
+           BAGIAN 2: JARINGAN TEKNISI
+           ======================================================== */
+        .section-teknisi {
+            background: var(--bg-subtle);
             border-bottom: 1px solid var(--border-light);
         }
+        
         .tech-metrics {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            gap: 1.3rem;
+            margin-bottom: 2.5rem;
+            width: 100%;
         }
+        
         .metric-card {
-            background: var(--bg-offwhite);
+            background: #ffffff;
             border: 1px solid var(--border-light);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: var(--radius-card);
+            padding: 1.6rem 1.2rem;
             text-align: center;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
         }
         .metric-card:hover {
             transform: translateY(-4px);
             border-color: var(--gold-main);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
         }
         .metric-card::before {
             content: '';
@@ -348,37 +543,49 @@
             top: 0; left: 0; width: 100%; height: 3px;
             background: linear-gradient(90deg, var(--purple-main), var(--gold-main));
         }
+        .metric-icon-wrap {
+            width: 32px;
+            height: 32px;
+            color: var(--purple-main);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .metric-val {
-            font-size: 2.2rem;
+            font-size: clamp(1.8rem, 2.5vw, 2.2rem);
             font-weight: 800;
             color: var(--purple-dark);
             display: block;
-            line-height: 1.1;
-            margin-bottom: 0.3rem;
+            line-height: 1.15;
+            margin-bottom: 0.35rem;
         }
         .metric-label {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            line-height: 1.35;
         }
 
         .tech-hub-layout {
             display: grid;
-            grid-template-columns: 1fr 1.4fr;
-            gap: 2rem;
+            grid-template-columns: 1fr 1.35fr;
+            gap: 1.8rem;
             align-items: start;
+            width: 100%;
         }
         .zone-list {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
+            width: 100%;
         }
         .zone-btn {
-            background: var(--bg-offwhite);
+            background: #ffffff;
             border: 1px solid var(--border-light);
-            border-radius: 10px;
+            border-radius: var(--radius-card);
             padding: 1rem 1.25rem;
             display: flex;
             align-items: center;
@@ -387,21 +594,29 @@
             transition: var(--transition);
             text-align: left;
             width: 100%;
+            color: var(--text-dark);
+            min-height: 64px;
+            box-shadow: var(--shadow-sm);
         }
         .zone-btn:hover {
             border-color: var(--purple-main);
-            background: #ffffff;
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
         }
         .zone-btn.active {
             background: var(--purple-dark);
-            color: #ffffff;
+            color: #ffffff !important;
             border-color: var(--purple-dark);
             box-shadow: var(--shadow-md);
+            transform: translateX(4px);
         }
         .zone-btn-left {
             display: flex;
             align-items: center;
             gap: 12px;
+            min-width: 0;
+            flex: 1;
+            padding-right: 8px;
         }
         .zone-badge-dot {
             width: 12px;
@@ -409,26 +624,42 @@
             border-radius: 50%;
             background: var(--gold-main);
             flex-shrink: 0;
+            transition: var(--transition);
         }
         .zone-btn.active .zone-badge-dot {
             background: #52c41a;
-            box-shadow: 0 0 8px rgba(82, 196, 26, 0.8);
+            box-shadow: 0 0 8px rgba(82, 196, 26, 0.85);
         }
         .zone-btn-title {
             font-weight: 700;
             font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.3;
+            transition: color 0.2s;
+        }
+        .zone-btn.active .zone-btn-title {
+            color: #ffffff;
         }
         .zone-btn-count {
             font-size: 0.8rem;
-            opacity: 0.75;
+            color: var(--text-muted);
+            line-height: 1.3;
+            transition: color 0.2s;
+            margin-top: 2px;
+        }
+        .zone-btn.active .zone-btn-count {
+            color: #E2DFEB;
         }
         .zone-btn-tag {
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             padding: 4px 10px;
-            border-radius: 6px;
-            background: rgba(74, 43, 130, 0.1);
-            color: var(--purple-dark);
+            border-radius: var(--radius-sm);
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-dark);
+            transition: var(--transition);
+            flex-shrink: 0;
+            white-space: nowrap;
         }
         .zone-btn.active .zone-btn-tag {
             background: rgba(212, 175, 55, 0.25);
@@ -436,43 +667,60 @@
         }
 
         .zone-detail-card {
-            background: var(--bg-offwhite);
+            background: #ffffff;
             border: 1px solid var(--border-light);
-            border-radius: 14px;
-            padding: 2rem;
+            border-radius: var(--radius-card);
+            padding: 2.2rem;
             position: relative;
-            animation: fadeIn 0.4s ease-in-out;
+            animation: fadeIn 0.35s ease-in-out;
+            color: var(--text-dark);
+            width: 100%;
+            box-shadow: var(--shadow-sm);
         }
         .zone-detail-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            gap: 1rem;
             border-bottom: 1px solid var(--border-light);
-            padding-bottom: 1.25rem;
+            padding-bottom: 1.35rem;
             margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .zone-detail-title {
+            min-width: 0;
+            flex: 1;
         }
         .zone-detail-title h4 {
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 2.5vw, 1.45rem);
             color: var(--purple-dark);
             font-weight: 800;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.3px;
         }
         .zone-detail-title p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            line-height: 1.45;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
         .sla-pill {
-            background: rgba(43, 27, 77, 0.08);
-            border: 1px solid var(--border-light);
-            color: var(--purple-main);
-            padding: 0.4rem 0.9rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
+            background: var(--gold-light);
+            border: 1px solid var(--border-gold);
+            color: var(--text-dark);
+            padding: 0.5rem 1.1rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.82rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             white-space: nowrap;
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
         }
         .province-tags {
             display: flex;
@@ -481,78 +729,94 @@
             margin-bottom: 1.5rem;
         }
         .prov-tag {
-            background: #ffffff;
+            background: var(--bg-offwhite);
             border: 1px solid var(--border-light);
-            padding: 0.35rem 0.75rem;
-            border-radius: 6px;
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
             font-size: 0.8rem;
             color: var(--text-dark);
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            font-weight: 600;
         }
-        .prov-tag i { color: var(--gold-dark); font-size: 0.7rem; }
+        .prov-tag .prov-pin-icon { color: var(--gold-dark); width: 14px; height: 14px; }
+        
         .tech-spec-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
             border-top: 1px dashed var(--border-light);
-            padding-top: 1.25rem;
+            padding-top: 1.35rem;
+            width: 100%;
         }
         .tech-spec-item {
-            background: #ffffff;
+            background: var(--bg-offwhite);
             border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 1rem;
+            border-radius: var(--radius-sm);
+            padding: 1.15rem;
         }
         .tech-spec-item h5 {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--purple-dark);
             font-weight: 700;
             margin-bottom: 0.4rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         .tech-spec-item p {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             margin: 0;
-            line-height: 1.4;
+            line-height: 1.5;
+        }
+
+        /* ========================================================
+           BAGIAN 3: KATALOG INSTRUMEN
+           ======================================================== */
+        .section-katalog {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .catalog-container {
-            background: var(--bg-white);
-            border-radius: 12px;
+            background: #ffffff;
+            border-radius: var(--radius-card);
             padding: 2.5rem;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-light);
+            width: 100%;
         }
         .catalog-controls {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            gap: 1.6rem;
+            margin-bottom: 2.4rem;
+            width: 100%;
         }
         .search-wrapper {
             position: relative;
-            max-width: 500px;
+            max-width: 560px;
             margin: 0 auto;
             width: 100%;
         }
-        .search-wrapper i {
+        .search-wrapper .search-icon {
             position: absolute;
-            left: 15px; top: 50%;
+            left: 18px; 
+            top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
-            font-size: 1rem;
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
         }
         .search-wrapper input {
             width: 100%;
-            padding: 0.9rem 1.2rem 0.9rem 2.8rem;
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-            font-size: 0.95rem;
+            padding: 0.95rem 1.25rem 0.95rem 3.1rem;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-card);
+            font-size: 1rem;
             color: var(--text-dark);
             outline: none;
             transition: var(--transition);
@@ -561,54 +825,68 @@
         .search-wrapper input:focus {
             border-color: var(--purple-main);
             background: var(--bg-white);
+            box-shadow: 0 0 0 3px rgba(74, 43, 130, 0.12);
         }
+
         .filter-wrapper {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.6rem;
+            align-items: center;
+            gap: 0.65rem;
+            width: 100%;
         }
         .filter-btn {
-            background: var(--bg-white);
+            background: var(--bg-offwhite);
             border: 1px solid var(--border-light);
-            color: var(--text-muted);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            color: var(--text-dark);
+            padding: 0.6rem 1.15rem;
+            border-radius: var(--radius-sm);
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+            min-height: 42px;
         }
         .filter-btn:hover {
             border-color: var(--purple-main);
             color: var(--purple-main);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         .filter-btn.active {
-            background: var(--purple-main);
-            color: var(--bg-white);
-            border-color: var(--purple-main);
+            background: var(--purple-dark);
+            color: #ffffff !important;
+            border-color: var(--purple-dark);
+            box-shadow: 0 4px 12px rgba(43, 27, 77, 0.22);
+            transform: translateY(-2px);
         }
         .filter-btn .badge {
-            background: var(--border-light);
-            color: var(--text-muted);
-            padding: 2px 6px;
-            border-radius: 4px;
+            background: rgba(74, 43, 130, 0.08);
+            color: var(--text-dark);
+            padding: 2px 7px;
+            border-radius: 12px;
             font-size: 0.75rem;
+            font-weight: 700;
+            transition: var(--transition);
         }
         .filter-btn.active .badge {
-            background: rgba(255,255,255,0.2);
-            color: var(--bg-white);
+            background: rgba(212, 175, 55, 0.35);
+            color: #ffffff;
         }
 
         .category-block {
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.8rem;
             background: var(--bg-white);
-            border-radius: 10px;
+            border-radius: var(--radius-card);
             border: 1px solid var(--border-light);
             overflow: hidden;
+            transition: var(--transition);
+            width: 100%;
         }
         .cat-header {
             display: flex;
@@ -617,8 +895,13 @@
             padding: 1.25rem 1.5rem;
             background: var(--bg-offwhite);
             cursor: pointer;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid transparent;
             transition: var(--transition);
+            user-select: none;
+        }
+        .category-block.expanded .cat-header {
+            border-bottom: 1px solid var(--border-light);
+            background: #ffffff;
         }
         .cat-header:hover {
             background: var(--purple-light);
@@ -626,29 +909,46 @@
         .cat-header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            min-width: 0;
+            flex: 1;
         }
         .cat-icon {
-            width: 40px; height: 40px;
-            background: var(--purple-main);
-            color: var(--gold-main);
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem;
+            width: 44px; 
+            height: 44px;
+            border-radius: var(--radius-sm);
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .cat-title {
+            min-width: 0;
+            flex: 1;
         }
         .cat-title h4 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--purple-dark);
             font-weight: 700;
+            line-height: 1.35;
         }
         .cat-title p {
             color: var(--text-muted);
             font-size: 0.85rem;
             margin-top: 2px;
+            line-height: 1.3;
         }
         .cat-toggle-icon {
             color: var(--text-muted);
-            transition: transform 0.3s ease;
+            margin-left: 10px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .category-block.expanded .cat-toggle-icon {
             transform: rotate(180deg);
@@ -658,77 +958,80 @@
         }
         .category-block.expanded .cat-content {
             display: block;
-            animation: fadeIn 0.4s ease-in-out;
+            animation: fadeIn 0.35s ease-in-out;
         }
         .cat-content-inner {
             padding: 1.5rem;
-            /* Padding atas dan bawah ekstra agar efek shadow hover tidak terpotong */
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
+            width: 100%;
         }
 
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.2rem;
+            gap: 1.25rem;
+            width: 100%;
         }
+        
         .item-card {
-            background: var(--bg-white);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 1.2rem;
-            transition: var(--transition);
+            background: #ffffff !important;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-card);
+            padding: 1.35rem;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
             display: flex;
             flex-direction: column;
             cursor: pointer;
+            position: relative;
+            width: 100%;
         }
         .item-card:hover {
-            border-color: var(--purple-main);
+            border-color: rgba(212, 175, 55, 0.7);
             box-shadow: var(--shadow-md);
-            transform: translateY(-4px);
+            transform: translateY(-3px);
         }
+        
         .item-card.highlighted {
-            border-color: var(--gold-main);
-            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
-            background: var(--gold-light);
+            border: 2px solid var(--gold-main) !important;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22), var(--shadow-md);
+            background: #ffffff !important;
+            transform: translateY(-3px);
         }
+        
         .item-card-top {
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            margin-bottom: 1rem;
+            margin-bottom: 1.1rem;
         }
         .item-icon {
-            width: 40px; height: 40px;
-            border-radius: 6px;
-            background: var(--purple-light);
-            color: var(--purple-main);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
+            width: 44px; 
+            height: 44px;
+            border-radius: var(--radius-sm);
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             flex-shrink: 0;
             transition: var(--transition);
         }
-        .item-card:hover .item-icon, .item-card.highlighted .item-icon {
-            background: var(--purple-main);
-            color: var(--gold-main);
+        .item-card:hover .item-icon {
+            transform: scale(1.06);
         }
-        .item-info { flex-grow: 1; }
+        .item-info { 
+            flex-grow: 1;
+            min-width: 0;
+        }
         .item-name {
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--purple-dark);
-            line-height: 1.3;
+            line-height: 1.35;
             margin-bottom: 0.4rem;
+            word-break: break-word;
         }
         .item-function {
             font-size: 0.8rem;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.45;
         }
         .item-footer {
             margin-top: auto;
@@ -737,119 +1040,231 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 8px;
         }
         .status-badge {
             font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--purple-dark);
-            background: var(--purple-light);
+            font-weight: 700;
             padding: 3px 8px;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
+            white-space: nowrap;
         }
         .support-links {
             display: flex;
             gap: 6px;
+            flex-shrink: 0;
         }
         .support-link {
-            width: 26px; height: 26px;
-            border-radius: 4px;
+            width: 32px; 
+            height: 32px;
+            border-radius: var(--radius-sm);
             background: var(--bg-offwhite);
             color: var(--text-muted);
-            display: flex; align-items: center; justify-content: center;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             text-decoration: none;
-            font-size: 0.85rem;
             border: 1px solid var(--border-light);
             transition: var(--transition);
         }
         .support-link:hover {
             background: var(--gold-main);
-            color: var(--bg-white);
+            color: #ffffff;
             border-color: var(--gold-main);
+            transform: scale(1.1);
         }
 
-        .workflow {
+        /* ========================================================
+           BAGIAN 4: STANDAR PELAKSANAAN & ALUR KERJA
+           ======================================================== */
+        .section-workflow {
+            background: var(--bg-subtle);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .wf-container {
             background: var(--purple-dark);
             color: var(--bg-white);
-            border-radius: 12px;
+            border-radius: var(--radius-card);
             padding: 4rem 3rem;
             position: relative;
+            width: 100%;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
         }
+
+        .wf-container::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .wf-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .wf-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold-light);
+            border: 1px solid var(--border-gold);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.78rem;
+            margin-bottom: 0.8rem;
+        }
+        .wf-title {
+            color: #ffffff;
+            font-size: clamp(1.65rem, 3vw, 2.2rem);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.6rem;
+        }
+        .wf-subtitle {
+            color: #C8BFDA;
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .wf-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            gap: 1.8rem;
             position: relative;
             z-index: 2;
+            width: 100%;
         }
-        .wf-step { text-align: center; }
-        .wf-num {
-            width: 45px; height: 45px;
+        
+        .wf-step { 
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-card);
+            padding: 2.2rem 1.4rem;
+            text-align: center;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wf-step:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--gold-main);
+            transform: translateY(-4px);
+        }
+
+        .wf-num-badge {
+            width: 52px; 
+            height: 52px;
             background: var(--gold-main);
             color: var(--purple-dark);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 0 auto 1.2rem;
+            border-radius: var(--radius-sm);
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 1.3rem;
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+            transition: var(--transition);
         }
+
+        .wf-step:hover .wf-num-badge {
+            transform: rotate(5deg) scale(1.08);
+        }
+
         .wf-step h5 {
             font-size: 1.05rem;
             color: var(--bg-white);
             margin-bottom: 0.6rem;
-            font-weight: 600;
+            font-weight: 700;
+            line-height: 1.35;
         }
         .wf-step p {
             font-size: 0.85rem;
-            color: #E2DFEB;
-            line-height: 1.5;
+            color: #D8D2E6;
+            line-height: 1.55;
+            margin: 0;
         }
 
+        /* Footer */
         footer {
-            background: #1A1A24;
+            background: #151022;
             color: #BDB5CE;
-            padding: 4rem 0 2rem;
+            padding: 4.5rem 0 2rem;
             border-top: 4px solid var(--purple-main);
+            width: 100%;
         }
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 3rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            width: 100%;
         }
         .footer-brand .logo-text h1 { color: var(--bg-white); }
-        .footer-brand p { margin-top: 1rem; max-width: 400px; font-size: 0.9rem;}
+        .footer-brand p { margin-top: 1rem; max-width: 420px; font-size: 0.9rem; line-height: 1.6;}
         .footer-title {
             color: var(--bg-white);
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1.2rem;
         }
         .footer-list { list-style: none; font-size: 0.9rem;}
-        .footer-list li { margin-bottom: 0.8rem; display: flex; gap: 8px; }
-        .footer-list i { color: var(--gold-main); margin-top: 3px; }
+        .footer-list li { margin-bottom: 0.8rem; display: flex; gap: 9px; align-items: flex-start;}
+        .footer-list .footer-arrow { color: var(--gold-main); width: 14px; height: 14px; margin-top: 4px; flex-shrink: 0;}
+        .footer-list .footer-icon { color: var(--gold-main); width: 16px; height: 16px; margin-top: 3px; flex-shrink: 0;}
         .footer-list a { color: #BDB5CE; text-decoration: none; transition: var(--transition); }
         .footer-list a:hover { color: var(--gold-main); }
         .copyright {
             text-align: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.8rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.82rem;
+            color: #8C849E;
         }
 
         .empty-state {
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 3.5rem 1rem;
         }
-        .empty-state i {
-            font-size: 3rem; color: var(--border-light);
-            margin-bottom: 1rem;
+        .empty-state .empty-icon {
+            width: 54px; 
+            height: 54px;
+            color: var(--border-light);
+            margin: 0 auto 1rem;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================================
+           RESPONSIVE RULES (TABLET & MOBILE)
+           ======================================================== */
         @media (max-width: 1024px) {
-            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-grid { 
+                grid-template-columns: 1fr; 
+                text-align: center; 
+                gap: 2.5rem;
+            }
+            .hero-content p, .hero-badge {
+                margin-left: auto;
+                margin-right: auto;
+            }
             .hero-grid .hero-image { display: none; }
             .trust-indicators { justify-content: center; }
             .services-grid, .wf-grid { grid-template-columns: repeat(2, 1fr); }
@@ -857,46 +1272,127 @@
             .tech-metrics { grid-template-columns: repeat(2, 1fr); }
             .tech-hub-layout { grid-template-columns: 1fr; }
         }
+
         @media (max-width: 768px) {
+            .container {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+            .section-padding { padding: 3.8rem 0; }
+            
+            .mobile-menu-btn { display: flex; }
             .nav-links {
                 display: none;
                 flex-direction: column;
                 position: absolute;
-                top: 70px;
+                top: 72px;
                 left: 0;
                 width: 100%;
-                background: white;
-                padding: 1rem 0;
-                box-shadow: var(--shadow-md);
+                background: #ffffff;
+                padding: 1.5rem 1.25rem;
+                box-shadow: var(--shadow-lg);
+                border-bottom: 1px solid var(--border-light);
+                gap: 1rem;
             }
             .nav-links.active { display: flex; }
-            .mobile-menu-btn { display: block; }
+            .nav-links li { width: 100%; }
+            .nav-links a {
+                display: block;
+                width: 100%;
+                padding: 0.6rem 0;
+                font-size: 1rem;
+            }
+            .nav-links .btn-primary {
+                width: 100%;
+                text-align: center;
+                margin-top: 0.5rem;
+            }
+
+            .hero {
+                padding-top: 115px;
+                padding-bottom: 50px;
+            }
+            .hero-content h2 { font-size: 1.9rem; }
+            .hero-content p { font-size: 0.95rem; }
+
             .services-grid, .wf-grid, .footer-grid { grid-template-columns: 1fr; }
-            .tech-metrics { grid-template-columns: 1fr; }
+            .tech-metrics { grid-template-columns: 1fr; gap: 1rem; }
+            .metric-card { padding: 1.35rem 1rem; }
+
+            .zone-btn {
+                padding: 0.85rem 1rem;
+                min-height: auto;
+            }
+            .zone-detail-card {
+                padding: 1.4rem 1.1rem;
+            }
+            .zone-detail-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
             .tech-spec-grid { grid-template-columns: 1fr; }
-            .catalog-container { padding: 1.5rem 1rem; }
-            .items-grid { grid-template-columns: 1fr; }
-            .cat-header { flex-direction: column; text-align: center; gap: 10px; }
-            .cat-header-left { flex-direction: column; }
-            .cat-toggle-icon { margin-top: 10px; }
+
+            .catalog-container { 
+                padding: 1.4rem 1rem; 
+            }
+            .filter-wrapper {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .filter-btn {
+                padding: 0.5rem 0.85rem;
+                font-size: 0.8rem;
+            }
+
+            .cat-header {
+                padding: 1rem;
+            }
+            .cat-content-inner {
+                padding: 1.1rem 0.6rem;
+            }
+            .items-grid { 
+                grid-template-columns: 1fr; 
+            }
+
+            .wf-container {
+                padding: 3rem 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .trust-indicators {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.2rem;
+            }
+            .trust-item { width: 100%; max-width: 280px; }
+            .catalog-container { padding: 1.25rem 0.75rem; }
+            .cat-content-inner { padding: 1rem 0.4rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- NAVIGASI -->
     <nav id="navbar">
         <div class="container nav-inner">
             <a href="#" class="logo">
-                <!-- Pemanggilan File PNG Logo PT VMI beserta Failsafe -->
-                <img src="logo_vmi.png" alt="Logo PT VMI" class="vmi-logo-img" onerror="handleLogoFallback(this, 40)">
+                <img src="logo_vmi.png" alt="Logo PT VMI" class="vmi-logo-img" onerror="handleLogoFallback(this, 42)">
                 <div class="logo-text">
                     <h1>PT VMI</h1>
                     <span>Solusi Laboratorium Terpadu</span>
                 </div>
             </a>
             
-            <button class="mobile-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('active')">
-                <i class="fa-solid fa-bars"></i>
+            <button class="mobile-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('active')" aria-label="Buka navigasi menu">
+                <svg viewBox="0 0 24 24" class="ui-icon" style="width: 24px; height: 24px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+                </svg>
             </button>
 
             <ul class="nav-links" id="nav-links">
@@ -909,34 +1405,50 @@
         </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section class="hero">
         <div class="container hero-grid">
             <div class="hero-content fade-in-up">
-                <div class="hero-badge"><i class="fa-solid fa-building-circle-check"></i> Mitra Pengadaan Laboratorium</div>
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24" class="ui-icon" style="width: 17px; height: 17px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v7"/><path d="M18 22v-3"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h2"/><path d="m16 19 2 2 4-4"/>
+                    </svg>
+                    Mitra Pengadaan Laboratorium Terpercaya
+                </div>
                 <h2>Penyedia Instrumen Laboratorium <span>Terintegrasi</span></h2>
-                <p>Kami mendistribusikan alat laboratorium dan memastikan setiap perangkat beroperasi sesuai spesifikasi pabrikan melalui layanan instalasi, pelatihan, dan dukungan purnajual berkelanjutan.</p>
+                <p>Kami mendistribusikan instrumen analitik terstandar dan memastikan setiap perangkat beroperasi optimal sesuai spesifikasi pabrikan melalui layanan instalasi kualifikasi, pelatihan pengguna, dan komitmen suku cadang bergaransi.</p>
                 <div class="trust-indicators">
                     <div class="trust-item">
-                        <div class="trust-icon"><i class="fa-solid fa-file-contract"></i></div>
+                        <div class="trust-icon">
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="width: 22px; height: 22px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>
+                            </svg>
+                        </div>
                         <div class="trust-text">
                             <h4>Legalitas Distribusi</h4>
-                            <p>Sertifikat CDAKB & IDAK</p>
+                            <p>Sertifikasi CDAKB & IDAK</p>
                         </div>
                     </div>
                     <div class="trust-item">
-                        <div class="trust-icon"><i class="fa-solid fa-box-archive"></i></div>
+                        <div class="trust-icon">
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="width: 22px; height: 22px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 8v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"/><path d="M21 3H3a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1Z"/><path d="M10 12h4"/>
+                            </svg>
+                        </div>
                         <div class="trust-text">
                             <h4>Komponen Terjamin</h4>
-                            <p>Ketersediaan Suku Cadang</p>
+                            <p>Ketersediaan Suku Cadang Asli</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="hero-image fade-in-up" style="transition-delay: 0.2s;">
-                <div style="position: relative; width: 100%; aspect-ratio: 1; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%); display: flex; align-items: center; justify-content: center;">
-                    <div style="width: 220px; height: 220px; border-radius: 50%; border: 1px dashed rgba(212,175,55,0.4); animation: spin 25s linear infinite; position: absolute;"></div>
-                    <div style="width: 150px; height: 150px; border-radius: 50%; background: var(--gold-main); display: flex; align-items: center; justify-content: center; z-index: 2;">
-                        <i class="fa-solid fa-flask-vial" style="font-size: 4rem; color: var(--purple-dark);"></i>
+                <div style="position: relative; width: 100%; aspect-ratio: 1; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 65%); display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 230px; height: 230px; border-radius: 50%; border: 1.5px dashed rgba(212,175,55,0.4); animation: spin 28s linear infinite; position: absolute;"></div>
+                    <div style="width: 155px; height: 155px; border-radius: 50%; background: var(--gold-main); display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 0 35px rgba(212, 175, 55, 0.4);">
+                        <svg viewBox="0 0 24 24" style="width: 65px; height: 65px; stroke: var(--purple-dark); stroke-width: 2; fill: none;" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 2v7.31L4.36 19.46A2 2 0 0 0 6.1 22h11.8a2 2 0 0 0 1.74-2.54L14 9.31V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 0 0-4 0"/><path d="M5.52 16h12.96"/>
+                        </svg>
                     </div>
                 </div>
                 <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
@@ -944,75 +1456,164 @@
         </div>
     </section>
 
-    <section class="section-padding" id="dukungan">
+    <!-- BAGIAN 1: LAYANAN PURNAJUAL -->
+    <section class="section-padding section-dukungan" id="dukungan">
         <div class="container">
             <div class="section-header fade-in-up">
-                <span class="section-subtitle">Layanan Purnajual</span>
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24" class="ui-icon" style="width: 15px; height: 15px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>
+                    </svg>
+                    Komitmen Layanan
+                </span>
                 <h2 class="section-title">4 Dukungan Teknis Terpadu</h2>
+                <p class="section-desc">Standar pelayanan purnajual menyeluruh guna menjamin presisi pengujian, keandalan data riset, dan masa pakai instrumen laboratorium Anda.</p>
             </div>
             
             <div class="services-grid">
                 <div class="service-card fade-in-up" id="dukungan-1" style="transition-delay: 0.1s;">
-                    <div class="service-icon"><i class="fa-solid fa-boxes-packing"></i></div>
-                    <h3>1. Instalasi Instrumen</h3>
-                    <p>Pemasangan alat mengikuti standar kualifikasi operasional pabrikan dan verifikasi kelistrikan ruang.</p>
+                    <div class="service-header-row">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="width: 24px; height: 24px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m16.5 9.4-9-5.19"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/>
+                            </svg>
+                        </div>
+                        <span class="service-number">01</span>
+                    </div>
+                    <h3>Instalasi Instrumen</h3>
+                    <p>Pemasangan alat mengikuti protokol kualifikasi pabrikan dan pengondisian kelistrikan ruang pengujian.</p>
                     <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> Protokol Kualifikasi (IQ/OQ/PQ)</li>
-                        <li><i class="fa-solid fa-check"></i> Uji Fungsi dan Kalibrasi Awal</li>
+                        <li>
+                            <svg viewBox="0 0 24 24" class="bullet-icon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span>Kualifikasi IQ/OQ/PQ lengkap</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" class="bullet-icon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span>Uji fungsi & kalibrasi awal di tempat</span>
+                        </li>
                     </ul>
                 </div>
+                
                 <div class="service-card fade-in-up" id="dukungan-2" style="transition-delay: 0.2s;">
-                    <div class="service-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                    <h3>2. Pelatihan Pengguna</h3>
-                    <p>Transfer pengetahuan operasional untuk memastikan petugas laboratorium mampu mengoperasikan instrumen.</p>
+                    <div class="service-header-row">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="width: 24px; height: 24px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <span class="service-number">02</span>
+                    </div>
+                    <h3>Pelatihan Pengguna</h3>
+                    <p>Transfer pengetahuan komprehensif bagi analis laboratorium untuk menguasai alur kerja alat secara mandiri.</p>
                     <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> Pengoperasian dan Pemrosesan Sampel</li>
-                        <li><i class="fa-solid fa-check"></i> Penanganan Kendala Ringan</li>
+                        <li>
+                            <svg viewBox="0 0 24 24" class="bullet-icon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span>Metode preparasi & pembacaan sampel</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" class="bullet-icon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span>Panduan pemecahan kendala (troubleshooting)</span>
+                        </li>
                     </ul>
                 </div>
+                
                 <div class="service-card fade-in-up" id="dukungan-3" style="transition-delay: 0.3s;">
-                    <div class="service-icon"><i class="fa-solid fa-clipboard-check"></i></div>
-                    <h3>3. Perawatan Berkala</h3>
-                    <p>Pemeliharaan instrumen yang terjadwal untuk menjaga tingkat akurasi hasil pengujian.</p>
+                    <div class="service-header-row">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="width: 24px; height: 24px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <span class="service-number">03</span>
+                    </div>
+                    <h3>Perawatan Berkala</h3>
+                    <p>Program pemeliharaan terjadwal untuk menjaga sensitivitas optik, stabilitas mekanik, dan akurasi pengujian.</p>
                     <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> Jadwal Kalibrasi dan Validasi</li>
-                        <li><i class="fa-solid fa-check"></i> Pembersihan Sensor Optik</li>
+                        <li>
+                            <svg viewBox="0 0 24 24" class="bullet-icon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span>Pembersihan sensor & komponen optik</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" class="bullet-icon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span>Kalibrasi ulang terverifikasi rutin</span>
+                        </li>
                     </ul>
                 </div>
+                
                 <div class="service-card fade-in-up" id="dukungan-4" style="transition-delay: 0.4s;">
-                    <div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                    <h3>4. Perbaikan Alat</h3>
-                    <p>Penanganan kendala teknis dengan penggantian komponen berbasis suku cadang asli pabrikan.</p>
+                    <div class="service-header-row">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="width: 24px; height: 24px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
+                        </div>
+                        <span class="service-number">04</span>
+                    </div>
+                    <h3>Perbaikan & Suku Cadang</h3>
+                    <p>Respons penanganan kendala teknis cepat didukung ketersediaan suku cadang asli bergaransi resmi.</p>
                     <ul class="service-list">
-                        <li><i class="fa-solid fa-check"></i> Pemeriksaan Lapangan Efisien</li>
-                        <li><i class="fa-solid fa-check"></i> Jaminan Ketersediaan Komponen</li>
+                        <li>
+                            <svg viewBox="0 0 24 24" class="bullet-icon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span>Diagnostik teknis tepat sasaran</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" class="bullet-icon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span>Jaminan suku cadang original pabrikan</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding technician-section" id="jaringan-teknisi">
+    <!-- BAGIAN 2: JARINGAN TEKNISI NASIONAL -->
+    <section class="section-padding section-teknisi" id="jaringan-teknisi">
         <div class="container">
             <div class="section-header fade-in-up">
-                <span class="section-subtitle">Kesiapan Dukungan Nasional</span>
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24" class="ui-icon" style="width: 15px; height: 15px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    Jangkauan Nasional
+                </span>
                 <h2 class="section-title">Sebaran Teknisi di Seluruh Indonesia</h2>
+                <p class="section-desc">Didukung oleh jaringan tenaga ahli spesialis aplikasi dan teknisi lapangan yang siap dimobilisasi ke fasilitas kesehatan dan laboratorium di 38 provinsi.</p>
             </div>
 
             <div class="tech-metrics fade-in-up">
                 <div class="metric-card">
+                    <div class="metric-icon-wrap">
+                        <svg viewBox="0 0 24 24" class="ui-icon" style="width: 26px; height: 26px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 6.5-3.5c1.8 0 3.4.6 4.6 1.6"/><circle cx="18" cy="18" r="3"/><path d="m18 15v1"/><path d="m18 20v1"/><path d="m15.5 16.5.9.5"/><path d="m19.6 19 .9.5"/><path d="m15.5 19.5.9-.5"/><path d="m19.6 17 .9-.5"/>
+                        </svg>
+                    </div>
                     <span class="metric-val">48+</span>
                     <span class="metric-label">Teknisi & Application Specialist</span>
                 </div>
                 <div class="metric-card">
+                    <div class="metric-icon-wrap">
+                        <svg viewBox="0 0 24 24" class="ui-icon" style="width: 26px; height: 26px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
                     <span class="metric-val">38</span>
                     <span class="metric-label">Provinsi Terlayani Siaga</span>
                 </div>
                 <div class="metric-card">
+                    <div class="metric-icon-wrap">
+                        <svg viewBox="0 0 24 24" class="ui-icon" style="width: 26px; height: 26px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/>
+                        </svg>
+                    </div>
                     <span class="metric-val">6</span>
                     <span class="metric-label">Hub Layanan Regional</span>
                 </div>
                 <div class="metric-card">
+                    <div class="metric-icon-wrap">
+                        <svg viewBox="0 0 24 24" class="ui-icon" style="width: 26px; height: 26px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M14 9h4.5a2 2 0 0 1 1.6.8L22 12.5V17a1 1 0 0 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+                        </svg>
+                    </div>
                     <span class="metric-val">&lt; 24 Jam</span>
                     <span class="metric-label">Target Kedatangan Lokasi Darurat</span>
                 </div>
@@ -1030,18 +1631,27 @@
         </div>
     </section>
 
-    <section class="section-padding" style="background-color: var(--purple-light);" id="katalog">
+    <!-- BAGIAN 3: KATALOG INSTRUMEN LABORATORIUM -->
+    <section class="section-padding section-katalog" id="katalog">
         <div class="container">
             <div class="section-header fade-in-up">
-                <span class="section-subtitle">Portofolio Produk</span>
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24" class="ui-icon" style="width: 15px; height: 15px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 2v7.31L4.36 19.46A2 2 0 0 0 6.1 22h11.8a2 2 0 0 0 1.74-2.54L14 9.31V2"/><path d="M8.5 2h7"/><path d="M5.52 16h12.96"/>
+                    </svg>
+                    Portofolio Produk
+                </span>
                 <h2 class="section-title">Katalog Alat Laboratorium</h2>
+                <p class="section-desc">Eksplorasi portofolio instrumen analitik, diagnostik klinis, hingga sistem rantai dingin. Pilih kategori atau gunakan kata kunci untuk verifikasi spesifikasi.</p>
             </div>
 
             <div class="catalog-container fade-in-up">
                 <div class="catalog-controls">
                     <div class="search-wrapper">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="searchInput" placeholder="Cari instrumen (contoh: HPLC, PCR, Mikroskop, Freezer)...">
+                        <svg viewBox="0 0 24 24" class="search-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                        </svg>
+                        <input type="text" id="searchInput" placeholder="Cari instrumen (contoh: HPLC, PCR, Mikroskop, Freezer)..." autocomplete="off">
                     </div>
                     
                     <div class="filter-wrapper" id="filterContainer">
@@ -1056,165 +1666,317 @@
         </div>
     </section>
 
-    <section class="section-padding" id="alur-kerja">
+    <!-- BAGIAN 4: STANDAR PELAKSANAAN & ALUR KERJA -->
+    <section class="section-padding section-workflow" id="alur-kerja">
         <div class="container">
-            <div class="workflow fade-in-up">
-                <div class="section-header" style="margin-bottom: 2.5rem;">
-                    <span class="section-subtitle" style="color: var(--gold-light);">Standar Pelaksanaan</span>
-                    <h2 class="section-title" style="color: var(--bg-white);">Alur Kerja dan Target Waktu Penyelesaian</h2>
+            <div class="wf-container fade-in-up">
+                <div class="wf-header">
+                    <span class="wf-badge">
+                        <svg viewBox="0 0 24 24" class="ui-icon" style="width: 15px; height: 15px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"/><line x1="3" x2="9" y1="12" y2="12"/><line x1="15" x2="21" y1="12" y2="12"/>
+                        </svg>
+                        Prosedur Operasional Terstandar
+                    </span>
+                    <h2 class="wf-title">Alur Kerja dan Target Penyelesaian</h2>
+                    <p class="wf-subtitle">Setiap tahapan pengadaan dieksekusi dengan protokol ketat demi menjamin keamanan pengiriman dan kesiapan operasional instrumen.</p>
                 </div>
+                
                 <div class="wf-grid">
                     <div class="wf-step">
-                        <div class="wf-num">1</div>
+                        <div class="wf-num-badge">01</div>
                         <h5>Pemeriksaan Lokasi</h5>
-                        <p>Evaluasi infrastruktur ruang dan kelistrikan laboratorium sebelum jadwal pengiriman alat.</p>
+                        <p>Evaluasi infrastruktur ruang, daya listrik, dan kestabilan suhu ruangan laboratorium sebelum jadwal pengiriman alat.</p>
                     </div>
+                    
                     <div class="wf-step">
-                        <div class="wf-num">2</div>
+                        <div class="wf-num-badge">02</div>
                         <h5>Pengiriman & Pemasangan</h5>
-                        <p>Distribusi barang sesuai standar mutu, pembukaan kemasan, dan penempatan alat oleh tim teknis.</p>
+                        <p>Distribusi instrumen bersertifikat mutu, unboxing steril, penempatan presisi, serta penataan kelistrikan ruang.</p>
                     </div>
+                    
                     <div class="wf-step">
-                        <div class="wf-num">3</div>
+                        <div class="wf-num-badge">03</div>
                         <h5>Uji Fungsi (Commissioning)</h5>
-                        <p>Pelaksanaan pengujian operasional alat, validasi kalibrasi awal, serta pelatihan staf laboratorium.</p>
+                        <p>Pengujian operasional, kalibrasi awal terverifikasi, serta pelatihan praktis langsung kepada analis laboratorium.</p>
                     </div>
+                    
                     <div class="wf-step">
-                        <div class="wf-num">4</div>
-                        <h5>Dukungan Teknis Lanjutan</h5>
-                        <p>Pelayanan keluhan operasional dengan standar respons keluhan awal yang terjadwal.</p>
+                        <div class="wf-num-badge">04</div>
+                        <h5>Dukungan Berkelanjutan</h5>
+                        <p>Pendampingan purnajual, respons keluhan teknis terjadwal, dan penyediaan buffer stock suku cadang resmi.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer id="kontak">
         <div class="container footer-grid">
             <div class="footer-brand">
                 <div class="logo-text" style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
-                    <!-- Pemanggilan Logo PNG di Footer -->
-                    <img src="logo_vmi.png" alt="Logo PT VMI" style="width: 30px; height: 30px; object-fit: contain;" onerror="handleLogoFallback(this, 30)">
+                    <img src="logo_vmi.png" alt="Logo PT VMI" style="width: 34px; height: 34px; object-fit: contain;" onerror="handleLogoFallback(this, 34)">
                     <div>
-                        <h1 style="font-size: 1.1rem; line-height: 1; color: var(--bg-white);">PT VMI</h1>
-                        <span style="color: var(--gold-main); font-size: 0.65rem; font-weight: 500;">Solusi Laboratorium Terpadu</span>
+                        <h1 style="font-size: 1.15rem; line-height: 1; color: var(--bg-white);">PT VMI</h1>
+                        <span style="color: var(--gold-main); font-size: 0.68rem; font-weight: 700;">Solusi Laboratorium Terpadu</span>
                     </div>
                 </div>
-                <p>Mitra pengadaan alat laboratorium terpadu, menghadirkan instrumen analitik dengan dukungan purnajual berkelanjutan untuk kelancaran riset dan diagnostik fasilitas Anda.</p>
+                <p>Mitra pengadaan alat laboratorium terpadu, menghadirkan instrumen analitik dengan dukungan purnajual berkelanjutan untuk kelancaran riset dan diagnostik fasilitas Anda di seluruh Indonesia.</p>
             </div>
+            
             <div>
                 <h4 class="footer-title">Area Layanan Pengadaan</h4>
                 <ul class="footer-list">
-                    <li><i class="fa-solid fa-angle-right"></i> Biologi Molekuler</li>
-                    <li><i class="fa-solid fa-angle-right"></i> Analisis Kimia & Spektroskopi</li>
-                    <li><i class="fa-solid fa-angle-right"></i> Patologi Klinik & Imunologi</li>
-                    <li><i class="fa-solid fa-angle-right"></i> Mikrobiologi & Inkubasi</li>
-                    <li><i class="fa-solid fa-angle-right"></i> Pemantauan Kualitas Lingkungan</li>
+                    <li>
+                        <svg viewBox="0 0 24 24" class="footer-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        <span>Biologi Molekuler & Genomika</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" class="footer-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        <span>Mikrobiologi, Kultur, & Biosafety</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" class="footer-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        <span>Patologi Klinik, Imunologi, & Hematologi</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" class="footer-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        <span>Analisis Kimia & Spektroskopi</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" class="footer-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        <span>Pengujian Kualitas Lingkungan & Air</span>
+                    </li>
                 </ul>
             </div>
+            
             <div>
                 <h4 class="footer-title">Informasi Kontak</h4>
                 <ul class="footer-list">
-                    <li><i class="fa-solid fa-location-dot"></i> <span>Kawasan Bisnis, Jakarta / Bekasi, Indonesia</span></li>
-                    <li><i class="fa-solid fa-phone"></i> <span>+62 21 8900 1234 (Kantor)</span></li>
-                    <li><i class="fa-solid fa-envelope"></i> <span>pengadaan@vmi.co.id</span></li>
+                    <li>
+                        <svg viewBox="0 0 24 24" class="footer-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="10" cy="10" r="3"/></svg>
+                        <span>Kawasan Bisnis, Jakarta / Bekasi, Jawa Barat, Indonesia</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" class="footer-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>+62 21 8900 1234 (Hunting)</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" class="footer-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <span>pengadaan@vmi.co.id</span>
+                    </li>
                 </ul>
             </div>
         </div>
+        
         <div class="copyright container">
-            &copy; 2026 PT VMI. Disusun sebagai profil perusahaan dan panduan teknis pengadaan.
+            &copy; 2026 PT VMI. Disusun sebagai profil perusahaan dan panduan teknis pengadaan instrumen laboratorium.
         </div>
     </footer>
 
+    <!-- SCRIPT LOGIKA SVG, KATALOG & ZONA TEKNISI -->
     <script>
-        // Fungsi Failsafe untuk Gambar PNG yang Gagal Dimuat
-        function handleLogoFallback(imgElement, size) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'fallback-logo-icon';
-            wrapper.style.width = size + 'px';
-            wrapper.style.height = size + 'px';
-            wrapper.innerHTML = '<i class="fa-solid fa-microscope"></i>';
-            imgElement.parentNode.replaceChild(wrapper, imgElement);
+        // Pustaka Ikon Vektor SVG Universal (100% Bebas Ketergantungan Font Eksternal)
+        const SVG_PATHS = {
+            'dna': `<path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1-1"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1 1"/>`,
+            'bacteria': `<circle cx="12" cy="12" r="6"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/><circle cx="10" cy="10" r="1" fill="currentColor"/><circle cx="14" cy="13" r="1" fill="currentColor"/>`,
+            'vials': `<path d="M4 2v14a4 4 0 0 0 8 0V2"/><path d="M2 2h12"/><path d="M4 11h8"/><path d="M16 8v8a4 4 0 0 0 8 0V8"/><path d="M14 8h10"/><path d="M16 13h8"/>`,
+            'flask-vial': `<path d="M10 2v7.31L4.36 19.46A2 2 0 0 0 6.1 22h11.8a2 2 0 0 0 1.74-2.54L14 9.31V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 0 0-4 0"/><path d="M5.52 16h12.96"/>`,
+            'wind': `<path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/>`,
+            'snowflake': `<line x1="2" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/>`,
+            'microscope': `<path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>`,
+            'fan': `<circle cx="12" cy="12" r="3"/><path d="M12 9c0-3.5 2-6 5.5-6 1 0 1.5.5 1.5 1.5 0 3.5-2.5 5.5-6 5.5"/><path d="M15 12c3.5 0 6 2 6 5.5 0 1-.5 1.5-1.5 1.5-3.5 0-5.5-2.5-5.5-6"/><path d="M12 15c0 3.5-2 6-5.5 6-1 0-1.5-.5-1.5-1.5 0-3.5 2.5-5.5 6-5.5"/><path d="M9 12c-3.5 0-6-2-6-5.5 0-1 .5-1.5 1.5-1.5 3.5 0 5.5 2.5 5.5 6"/>`,
+            'scale': `<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h18"/>`,
+            'temp': `<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>`,
+            'shield': `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/><path d="M12 6v2"/><path d="M12 14v2"/><path d="M7 11h2"/><path d="M15 11h2"/>`,
+            'pipette': `<path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="m2 13 3 3"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 2-3 2-3s2 1.4 2 3Z"/>`,
+            'shuffle': `<path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.8-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.4c1.3 0 2.5.6 3.3 1.7l1.7 2.4"/><path d="m14.5 13.9 1.6 2.4c.8 1.1 2 1.7 3.3 1.7H22"/><path d="m18 14 4 4-4 4"/>`,
+            'faucet': `<path d="M12 2v6"/><path d="M12 8H8a2 2 0 0 1-2-2V4"/><path d="M6 12h12a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1h-3v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2H6"/><circle cx="12" cy="20" r="1.5"/>`,
+            'temp-logger': `<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/><path d="M4 10h4"/><path d="M4 14h4"/><path d="M4 6h4"/>`,
+            'package': `<path d="m16.5 9.4-9-5.19"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/>`,
+            'training': `<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+            'check-clipboard': `<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>`,
+            'wrench': `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>`,
+            'check-circle': `<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>`,
+            'chevron-down': `<path d="m6 9 6 6 6-6"/>`
+        };
+
+        function makeSvg(iconKey, size = 20, extraStyle = '') {
+            const pathData = SVG_PATHS[iconKey] || SVG_PATHS['microscope'];
+            return `<svg viewBox="0 0 24 24" class="ui-icon" style="width: ${size}px; height: ${size}px; ${extraStyle}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${pathData}</svg>`;
         }
 
-        // Data Deskripsi dan Ikon Kategori Katalog
+        // Data Kategori: Ikon, Warna, dan Deskripsi
         const categoryDetails = {
             "Biologi Molekuler & Genomika": {
-                icon: "fa-dna",
+                iconKey: "dna",
+                color: "#059669",
+                bgColor: "#ECFDF5",
+                borderColor: "#A7F3D0",
+                badgeBg: "#D1FAE5",
                 desc: "Instrumen ekstraksi, amplifikasi, deteksi asam nukleat, serta sekuensing genetik."
             },
             "Mikrobiologi, Kultur, & Biosafety": {
-                icon: "fa-bacteria",
+                iconKey: "bacteria",
+                color: "#D97706",
+                bgColor: "#FFFBEB",
+                borderColor: "#FDE68A",
+                badgeBg: "#FEF3C7",
                 desc: "Sistem inkubasi, identifikasi mikroorganisme, sterilisasi, serta kabinet pelindung biohazard."
             },
             "Patologi Klinik, Imunologi, & Hematologi": {
-                icon: "fa-vial-virus",
+                iconKey: "vials",
+                color: "#E11D48",
+                bgColor: "#FFF1F2",
+                borderColor: "#FECDD3",
+                badgeBg: "#FFE4E6",
                 desc: "Instrumen diagnostik untuk menganalisis komposisi sel darah, imunologi, dan cairan tubuh."
             },
             "Analisis Kimia Instrumen Lanjutan & Spektroskopi": {
-                icon: "fa-flask-vial",
+                iconKey: "flask-vial",
+                color: "#4F46E5",
+                bgColor: "#EEF2FF",
+                borderColor: "#C7D2FE",
+                badgeBg: "#E0E7FF",
                 desc: "Perangkat pemisahan dan deteksi molekul analitik (Kromatografi dan Spektrometri)."
             },
             "Pengujian Kualitas Lingkungan, Air, & Udara": {
-                icon: "fa-wind",
+                iconKey: "wind",
+                color: "#0891B2",
+                bgColor: "#ECFEFF",
+                borderColor: "#A5F3FC",
+                badgeBg: "#CFFAFE",
                 desc: "Alat uji kualitas fisika dan kimia air, pemantauan udara, serta parameter lingkungan."
             },
             "Peralatan Umum, Pendukung, & Cold Chain": {
-                icon: "fa-snowflake",
+                iconKey: "snowflake",
+                color: "#475569",
+                bgColor: "#F8FAFC",
+                borderColor: "#CBD5E1",
+                badgeBg: "#E2E8F0",
                 desc: "Perangkat esensial laboratorium termasuk sistem pendingin, timbangan analitik, dan perlengkapan preparasi."
             }
         };
 
-        // Data Katalog Alat
+        // Data Katalog Lengkap
         const rawCatalogData = {
-            "Biologi Molekuler & Genomika": ["Real Time PCR", "Automatic Extractor", "Next Generation Sequencer (NGS) Long Read Sequencer", "Trans Illuminator Gel Electrophoresis", "PCR Konvensional", "Digital PCR", "Sanger sequencer", "Elektroforesis set", "Next Generation Sequencer (NGS) Short Read Sequencer", "Alat kuantifikasi DNA", "Sonicator chamber", "Tissue disruptor", "Bioinformatics System (computer dan Software)", "Oligosynthesizer", "Tes cepat molekuler"], 
-            "Mikrobiologi, Kultur, & Biosafety": ["Mesin identifikasi dan uji kepekaan otomatik/microba analyzer", "Mycobacteriology analyzer for tuberculosis using Liquid media", "Endotoxin LAL Assay (Quantitative)", "Biosafety Cabinet Class II Type A2", "Automated Blood Culture System", "Laminar Air Flow", "Mikroskop Fluorescence", "Automated Colony Counter", "Inkubator CO2", "Stomacher", "Mikroskop Stereo", "Autoklaf Kering", "Mikroskop Inverted", "Mikroskop Lapangan Gelap", "Digital Colony Counter", "Biosafety Cabinet Class II Type B2", "Matrix-assited lasser desorption/ionization- time-of-flight (MALDI-TOF)", "Anaerobic Jar", "Inkubator", "Autoklaf Basah", "Teaching microscope", "Mikroskop Binokuler"], 
-            "Patologi Klinik, Imunologi, & Hematologi": ["Immuno Analyzer (Chemiluminescence Immunoassay/ CLIA)", "Immunoassay For Newborn Screening (Fluorescence Immunoassay/ FIA)", "Hematology Analyzer", "Chemistry Analyzer", "Semi Automated Urine Analyzer", "Automated Urine Analyzer", "ELISA Set (ELISA Reader dan ELISA washer)", "Flow Cytometer", "Nephelometer", "Hb Electrophoresis Analyzer", "Low speed centrifuge (darah dan urin)"], 
-            "Analisis Kimia Instrumen Lanjutan & Spektroskopi": ["Spektrofotometer UV Vis", "Ion Kromatografi", "Atomic Absorption Spectrophotometry (AAS)", "Inductively Coupled Plasma Optical Emission Spectrometry (ICP OES)", "Inductively Coupled Plasma Mass Spectrometry (ICP-MS)", "Gas Chromatography-Mass Spectrometry (GC-MS) FID Headspace, Pyrolysis", "High Performance Liquid Chromatography (HPLC)", "Gas Chromatography-Tandem Mass Spectrometry (GC-MS/MS FID Headspace, Pyrolysis", "Liquid Chromatography-tandem Mass Spectrometry (LC-MS/MS) Detector", "Microwave digester", "Liquid Scinstilation Counting (LSC)", "Nitrogen evaporator"], 
-            "Pengujian Kualitas Lingkungan, Air, & Udara": ["Biochemical Oxygen Demand (BOD) Incubator", "Mikrobiologi air sampler", "Anemometer", "Flowmeter udara", "High Volume Air Sampler", "CO detector", "Air Sampler Impinger", "Total Dissolved Solids (TDS) Meter", "Chemical Oxygen Demand (COD) Reactor", "Manifold pump set/membrane filter", "Surveymeter (Radiation meter)", "Radon gas detector", "Air Quality Monitorium System (AQMS )", "UV index test", "Low Volume Air Sampler", "CO2 detector", "Turbidimeter", "Digital Particulate meter PM 2,5 dan 10", "Dissolved Oxygen (DO) Meter", "Entomologi Kit**", "Filter standard"], 
-            "Peralatan Umum, Pendukung, & Cold Chain": ["Rotator Plate", "Multi Channel Pipet (1-10 mikron, 10-100 mikron, 20-200 mikron, 100-1000 mikron - 8 row)", "Desiccator", "Dehumidifier", "Water purification system", "Lemari Asam", "Refrigerator Laboratory Grade (untuk reagen)", "Waterbath", "Deep Freezer (-80) with rack system (drawer)", "Temperature Monitoring system for refrigerator and freezer dengan notifikasi", "Freeze dry machine (cryopreservation)", "Refrigerated Centrifuge (ultra highspeed)", "Anak Timbangan Class F1 (1 mg – 2 kg)", "Spindown", "Heat block", "Shaker Plate", "Magnetic stand", "Lemari Reagen Flammable", "Rocking Shaker", "Pompa vakum (portable)", "Dispenser Pipet", "Refrigerated Centrifuge (highspeed)", "Oven", "Refrigerator Laboratory Grade (untuk sampel lingkungan dan makanan)", "Refrigerator Laboratory Grade (untuk Specimen)", "Freezer -20 with rack system", "Thermocouple", "Analytical Balance", "Analytical Balance micro", "Vortex", "Magnetic Stirer with hotplate", "Liquid Nitrogen Tank with canester", "Anak Timbangan standar E2 (1 mg – 2 kg),", "Mass Comparator", "PRT (Platinum Resistance Thermometer) dengan Read out", "Dry block", "Thermocouple dengan temperatur data logger min 10 channel (type K, type T, type RTD)", "Humidity Chamber", "Temperature and pressure data logger", "Mikropipet (0-2 mikron, 1-10 mikron, 10-100 mikron, 20-200 mikron, 100-1000 mikron) + Carousel"]
+            "Biologi Molekuler & Genomika": [
+                "Real Time PCR", "Automatic Extractor", "Next Generation Sequencer (NGS) Long Read Sequencer", 
+                "Trans Illuminator Gel Electrophoresis", "PCR Konvensional", "Digital PCR", "Sanger sequencer", 
+                "Elektroforesis set", "Next Generation Sequencer (NGS) Short Read Sequencer", "Alat kuantifikasi DNA", 
+                "Sonicator chamber", "Tissue disruptor", "Bioinformatics System (computer dan Software)", 
+                "Oligosynthesizer", "Tes cepat molekuler"
+            ], 
+            "Mikrobiologi, Kultur, & Biosafety": [
+                "Mesin identifikasi dan uji kepekaan otomatik/microba analyzer", 
+                "Mycobacteriology analyzer for tuberculosis using Liquid media", "Endotoxin LAL Assay (Quantitative)", 
+                "Biosafety Cabinet Class II Type A2", "Automated Blood Culture System", "Laminar Air Flow", 
+                "Mikroskop Fluorescence", "Automated Colony Counter", "Inkubator CO2", "Stomacher", 
+                "Mikroskop Stereo", "Autoklaf Kering", "Mikroskop Inverted", "Mikroskop Lapangan Gelap", 
+                "Digital Colony Counter", "Biosafety Cabinet Class II Type B2", 
+                "Matrix-assited lasser desorption/ionization- time-of-flight (MALDI-TOF)", "Anaerobic Jar", 
+                "Inkubator", "Autoklaf Basah", "Teaching microscope", "Mikroskop Binokuler"
+            ], 
+            "Patologi Klinik, Imunologi, & Hematologi": [
+                "Immuno Analyzer (Chemiluminescence Immunoassay/ CLIA)", 
+                "Immunoassay For Newborn Screening (Fluorescence Immunoassay/ FIA)", "Hematology Analyzer", 
+                "Chemistry Analyzer", "Semi Automated Urine Analyzer", "Automated Urine Analyzer", 
+                "ELISA Set (ELISA Reader dan ELISA washer)", "Flow Cytometer", "Nephelometer", 
+                "Hb Electrophoresis Analyzer", "Low speed centrifuge (darah dan urin)"
+            ], 
+            "Analisis Kimia Instrumen Lanjutan & Spektroskopi": [
+                "Spektrofotometer UV Vis", "Ion Kromatografi", "Atomic Absorption Spectrophotometry (AAS)", 
+                "Inductively Coupled Plasma Optical Emission Spectrometry (ICP OES)", 
+                "Inductively Coupled Plasma Mass Spectrometry (ICP-MS)", 
+                "Gas Chromatography-Mass Spectrometry (GC-MS) FID Headspace, Pyrolysis", 
+                "High Performance Liquid Chromatography (HPLC)", 
+                "Gas Chromatography-Tandem Mass Spectrometry (GC-MS/MS FID Headspace, Pyrolysis", 
+                "Liquid Chromatography-tandem Mass Spectrometry (LC-MS/MS) Detector", 
+                "Microwave digester", "Liquid Scinstilation Counting (LSC)", "Nitrogen evaporator"
+            ], 
+            "Pengujian Kualitas Lingkungan, Air, & Udara": [
+                "Biochemical Oxygen Demand (BOD) Incubator", "Mikrobiologi air sampler", "Anemometer", 
+                "Flowmeter udara", "High Volume Air Sampler", "CO detector", "Air Sampler Impinger", 
+                "Total Dissolved Solids (TDS) Meter", "Chemical Oxygen Demand (COD) Reactor", 
+                "Manifold pump set/membrane filter", "Surveymeter (Radiation meter)", "Radon gas detector", 
+                "Air Quality Monitorium System (AQMS )", "UV index test", "Low Volume Air Sampler", 
+                "CO2 detector", "Turbidimeter", "Digital Particulate meter PM 2,5 dan 10", 
+                "Dissolved Oxygen (DO) Meter", "Entomologi Kit**", "Filter standard"
+            ], 
+            "Peralatan Umum, Pendukung, & Cold Chain": [
+                "Rotator Plate", "Multi Channel Pipet (1-10 mikron, 10-100 mikron, 20-200 mikron, 100-1000 mikron - 8 row)", 
+                "Desiccator", "Dehumidifier", "Water purification system", "Lemari Asam", 
+                "Refrigerator Laboratory Grade (untuk reagen)", "Waterbath", 
+                "Deep Freezer (-80) with rack system (drawer)", 
+                "Temperature Monitoring system for refrigerator and freezer dengan notifikasi", 
+                "Freeze dry machine (cryopreservation)", "Refrigerated Centrifuge (ultra highspeed)", 
+                "Anak Timbangan Class F1 (1 mg – 2 kg)", "Spindown", "Heat block", "Shaker Plate", 
+                "Magnetic stand", "Lemari Reagen Flammable", "Rocking Shaker", "Pompa vakum (portable)", 
+                "Dispenser Pipet", "Refrigerated Centrifuge (highspeed)", "Oven", 
+                "Refrigerator Laboratory Grade (untuk sampel lingkungan dan makanan)", 
+                "Refrigerator Laboratory Grade (untuk Specimen)", "Freezer -20 with rack system", 
+                "Thermocouple", "Analytical Balance", "Analytical Balance micro", "Vortex", 
+                "Magnetic Stirer with hotplate", "Liquid Nitrogen Tank with canester", 
+                "Anak Timbangan standar E2 (1 mg – 2 kg),", "Mass Comparator", 
+                "PRT (Platinum Resistance Thermometer) dengan Read out", "Dry block", 
+                "Thermocouple dengan temperatur data logger min 10 channel (type K, type T, type RTD)", 
+                "Humidity Chamber", "Temperature and pressure data logger", 
+                "Mikropipet (0-2 mikron, 1-10 mikron, 10-100 mikron, 20-200 mikron, 100-1000 mikron) + Carousel"
+            ]
         };
 
-        // Fungsi Deteksi Ikon & Deskripsi Cerdas Berdasarkan Nama Alat
+        // Deteksi Ikon dan Deskripsi Setiap Alat
         function getItemMetadata(itemName, categoryName) {
             let n = itemName.toLowerCase();
-            let icon = 'fa-microscope';
-            let desc = 'Instrumen laboratorium.';
+            let cat = categoryDetails[categoryName];
+            let iconKey = cat ? cat.iconKey : 'microscope';
+            let desc = 'Instrumen laboratorium terstandar.';
 
-            if (n.includes('pcr') || n.includes('dna') || n.includes('sequencer') || n.includes('oligo')) {
-                icon = 'fa-dna'; desc = 'Alat deteksi genetik dan amplifikasi asam nukleat.';
+            if (n.includes('pcr') || n.includes('sequencer') || n.includes('dna') || n.includes('oligo')) {
+                iconKey = 'dna';
+                desc = 'Alat deteksi genetik dan amplifikasi asam nukleat.';
             } else if (n.includes('mikroskop') || n.includes('microscope')) {
-                icon = 'fa-microscope'; desc = 'Alat pengamatan struktur sampel mikroskopis.';
+                iconKey = 'microscope';
+                desc = 'Alat pengamatan perbesaran optik spesimen mikroskopis.';
             } else if (n.includes('centrifuge') || n.includes('spindown')) {
-                icon = 'fa-fan'; desc = 'Pemutar sampel untuk proses pemisahan sentrifugal.';
+                iconKey = 'fan';
+                desc = 'Pemutar sampel untuk pemisahan fasa secara sentrifugal.';
             } else if (n.includes('freezer') || n.includes('refrigerator') || n.includes('cold') || n.includes('nitrogen') || n.includes('freeze')) {
-                icon = 'fa-snowflake'; desc = 'Penyimpanan sampel berbasis rantai dingin (Cold Chain).';
+                iconKey = 'snowflake';
+                desc = 'Penyimpanan sampel suhu stabil rantai dingin (Cold Chain).';
             } else if (n.includes('timbangan') || n.includes('balance') || n.includes('mass') || n.includes('comparator')) {
-                icon = 'fa-scale-balanced'; desc = 'Perangkat ukur presisi untuk penimbangan massa zat.';
-            } else if (n.includes('autoklaf') || n.includes('inkubator') || n.includes('incubator') || n.includes('oven') || n.includes('block') || n.includes('waterbath')) {
-                icon = 'fa-temperature-half'; desc = 'Alat pemanas, sterilisasi, atau inkubasi suhu konstan.';
-            } else if (n.includes('cabinet') || n.includes('laminar') || n.includes('asam')) {
-                icon = 'fa-shield-virus'; desc = 'Fasilitas pelindung operator dari paparan biologis/kimia.';
-            } else if (n.includes('air sampler') || n.includes('meter') || n.includes('detector') || n.includes('aqms') || n.includes('anemometer') || n.includes('test') || n.includes('sensor')) {
-                icon = 'fa-wind'; desc = 'Pemantau parameter kualitas fisik dan lingkungan.';
+                iconKey = 'scale';
+                desc = 'Perangkat presisi untuk penimbangan massa zat laboratorium.';
+            } else if (n.includes('autoklaf') || n.includes('inkubator') || n.includes('incubator') || n.includes('oven') || n.includes('heat block') || n.includes('waterbath')) {
+                iconKey = 'temp';
+                desc = 'Alat pemanas, sterilisasi uap/kering, atau inkubasi suhu presisi.';
+            } else if (n.includes('cabinet') || n.includes('laminar') || n.includes('lemari asam')) {
+                iconKey = 'shield';
+                desc = 'Fasilitas pelindung operator dari paparan mikroba atau uap kimia.';
+            } else if (n.includes('sampler') || n.includes('meter') || n.includes('detector') || n.includes('aqms') || n.includes('anemometer') || n.includes('turbidimeter')) {
+                iconKey = 'wind';
+                desc = 'Sensor pemantau parameter kualitas fisik dan baku lingkungan.';
             } else if (n.includes('pipet') || n.includes('dispenser')) {
-                icon = 'fa-eye-dropper'; desc = 'Alat pemindahan volume cairan presisi (Liquid Handling).';
-            } else if (n.includes('chromatography') || n.includes('hplc') || n.includes('gc-ms') || n.includes('icp') || n.includes('spectro') || n.includes('kromatografi')) {
-                icon = 'fa-wave-square'; desc = 'Alat analisis pemisahan senyawa dan spektroskopi analitik.';
-            } else if (n.includes('analyzer') || n.includes('urine') || n.includes('blood') || n.includes('cytometer') || n.includes('assay') || n.includes('elisa')) {
-                icon = 'fa-vial'; desc = 'Peralatan diagnosis otomatis spesimen laboratorium klinik.';
-            } else if (n.includes('shaker') || n.includes('stirer') || n.includes('vortex') || n.includes('rotator') || n.includes('stomacher') || n.includes('extractor') || n.includes('digester') || n.includes('evaporator')) {
-                icon = 'fa-blender'; desc = 'Proses mekanis ekstraksi, pencampuran, atau homogenisasi.';
-            } else if (n.includes('water') && (n.includes('purification') || n.includes('filter'))) {
-                icon = 'fa-faucet-drip'; desc = 'Perangkat pemurnian kualitas air standar laboratorium.';
+                iconKey = 'pipette';
+                desc = 'Penanganan volume cairan mikro dengan presisi tinggi.';
+            } else if (n.includes('chromatography') || n.includes('hplc') || n.includes('gc-ms') || n.includes('lc-ms') || n.includes('icp') || n.includes('spektro') || n.includes('kromatografi')) {
+                iconKey = 'flask-vial';
+                desc = 'Pemisahan senyawa kimiawi dan analisis spektrometri analitik.';
+            } else if (n.includes('analyzer') || n.includes('urine') || n.includes('blood') || n.includes('cytometer') || n.includes('elisa') || n.includes('nephelometer')) {
+                iconKey = 'vials';
+                desc = 'Pemeriksaan otomatis biomarker spesimen diagnostik klinis.';
+            } else if (n.includes('shaker') || n.includes('stirer') || n.includes('vortex') || n.includes('rotator') || n.includes('stomacher') || n.includes('extractor') || n.includes('digester') || n.includes('evaporator') || n.includes('sonicator')) {
+                iconKey = 'shuffle';
+                desc = 'Ekstraksi mekanik, agitasi, dan homogenisasi preparasi sampel.';
+            } else if (n.includes('water purification') || n.includes('pump') || n.includes('purification')) {
+                iconKey = 'faucet';
+                desc = 'Sistem pemurnian air ultra-murni standar pengujian lab.';
             } else if (n.includes('logger') || n.includes('thermometer') || n.includes('thermocouple')) {
-                icon = 'fa-temperature-arrow-up'; desc = 'Perekam dan pembaca parameter suhu operasional.';
-            } else if (n.includes('software') || n.includes('system')) {
-                icon = 'fa-laptop-code'; desc = 'Perangkat keras atau sistem lunak analisis data.';
-            } else {
-                icon = categoryDetails[categoryName].icon;
+                iconKey = 'temp-logger';
+                desc = 'Perekaman dan pemantauan profil termal berkelanjutan.';
             }
-            return { icon, desc };
+
+            return { iconKey, desc };
         }
 
         const filterContainer = document.getElementById('filterContainer');
@@ -1248,13 +2010,11 @@
             });
         }
 
-        // Interaksi Toggle Kategori Katalog (Collapsible)
         window.toggleCategory = function(headerElement) {
             const block = headerElement.parentElement;
             block.classList.toggle('expanded');
         };
 
-        // Interaksi Klik Item Alat (Highlight)
         window.toggleItemHighlight = function(element) {
             element.classList.toggle('highlighted');
         };
@@ -1274,7 +2034,6 @@
 
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'category-block';
-                // Otomatis expand jika difilter atau jika ada pencarian, jika "All" biarkan tertutup (kecuali saat ada teks pencarian)
                 if (currentFilter !== 'All' || searchQuery !== '') {
                     groupDiv.classList.add('expanded');
                 }
@@ -1284,21 +2043,25 @@
                     const meta = getItemMetadata(itemName, categoryName);
                     
                     cardsHTML += `
-                        <div class="item-card" onclick="toggleItemHighlight(this)">
+                        <div class="item-card" onclick="toggleItemHighlight(this)" title="Klik untuk menandai/highlight alat ini">
                             <div class="item-card-top">
-                                <div class="item-icon"><i class="fa-solid ${meta.icon}"></i></div>
+                                <div class="item-icon" style="background-color: ${catMeta.bgColor}; color: ${catMeta.color}; border: 1px solid ${catMeta.borderColor};">
+                                    ${makeSvg(meta.iconKey, 22)}
+                                </div>
                                 <div class="item-info">
                                     <h5 class="item-name">${itemName}</h5>
                                     <p class="item-function">${meta.desc}</p>
                                 </div>
                             </div>
                             <div class="item-footer">
-                                <span class="status-badge"><i class="fa-solid fa-check"></i> Siap Pasang</span>
+                                <span class="status-badge" style="background-color: ${catMeta.badgeBg}; color: ${catMeta.color};">
+                                    ${makeSvg('check-circle', 14)} Siap Pasang
+                                </span>
                                 <div class="support-links" title="Pilih ikon untuk melompat ke detail dukungan teknis">
-                                    <a href="#dukungan-1" class="support-link" title="Dukungan Instalasi" onclick="event.stopPropagation();"><i class="fa-solid fa-boxes-packing"></i></a>
-                                    <a href="#dukungan-2" class="support-link" title="Dukungan Pelatihan" onclick="event.stopPropagation();"><i class="fa-solid fa-chalkboard-user"></i></a>
-                                    <a href="#dukungan-3" class="support-link" title="Dukungan Perawatan Berkala" onclick="event.stopPropagation();"><i class="fa-solid fa-clipboard-check"></i></a>
-                                    <a href="#dukungan-4" class="support-link" title="Dukungan Perbaikan Alat" onclick="event.stopPropagation();"><i class="fa-solid fa-screwdriver-wrench"></i></a>
+                                    <a href="#dukungan-1" class="support-link" title="Dukungan Instalasi" onclick="event.stopPropagation();">${makeSvg('package', 15)}</a>
+                                    <a href="#dukungan-2" class="support-link" title="Dukungan Pelatihan" onclick="event.stopPropagation();">${makeSvg('training', 15)}</a>
+                                    <a href="#dukungan-3" class="support-link" title="Dukungan Perawatan Berkala" onclick="event.stopPropagation();">${makeSvg('check-clipboard', 15)}</a>
+                                    <a href="#dukungan-4" class="support-link" title="Dukungan Perbaikan Alat" onclick="event.stopPropagation();">${makeSvg('wrench', 15)}</a>
                                 </div>
                             </div>
                         </div>
@@ -1308,14 +2071,16 @@
                 groupDiv.innerHTML = `
                     <div class="cat-header" onclick="toggleCategory(this)">
                         <div class="cat-header-left">
-                            <div class="cat-icon"><i class="fa-solid ${catMeta.icon}"></i></div>
+                            <div class="cat-icon" style="background-color: ${catMeta.bgColor}; color: ${catMeta.color}; border: 1px solid ${catMeta.borderColor};">
+                                ${makeSvg(catMeta.iconKey, 22)}
+                            </div>
                             <div class="cat-title">
                                 <h4>${categoryName}</h4>
-                                <p>${filteredItems.length} Instrumen Ditemukan</p>
+                                <p>${filteredItems.length} Instrumen Terdaftar</p>
                             </div>
                         </div>
                         <div class="cat-toggle-icon">
-                            <i class="fa-solid fa-chevron-down"></i>
+                            ${makeSvg('chevron-down', 18)}
                         </div>
                     </div>
                     <div class="cat-content">
@@ -1333,9 +2098,13 @@
             if (!isFound) {
                 catalogContent.innerHTML = `
                     <div class="empty-state">
-                        <i class="fa-solid fa-magnifying-glass-minus"></i>
+                        <div class="empty-icon">
+                            <svg viewBox="0 0 24 24" style="width: 100%; height: 100%; stroke: currentColor; fill: none;" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/>
+                            </svg>
+                        </div>
                         <h3 style="color: var(--purple-dark); margin-bottom: 8px;">Instrumen tidak ditemukan</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Kata kunci tidak sesuai. Silakan coba kembali dengan istilah teknis lainnya.</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Kata kunci "${searchQuery}" tidak sesuai. Silakan coba kembali dengan istilah teknis lainnya.</p>
                     </div>
                 `;
             }
@@ -1346,7 +2115,7 @@
             renderCatalog();
         });
 
-        // Data Sebaran Teknisi Regional Indonesia
+        // Data Sebaran Teknisi Regional
         const technicianRegionalData = {
             "jawa_bali": {
                 name: "Jawa & Bali",
@@ -1357,7 +2126,7 @@
                 provinces: ["DKI Jakarta", "Jawa Barat", "Banten", "Jawa Tengah", "DI Yogyakarta", "Jawa Timur", "Bali"],
                 capabilities: [
                     { title: "Kualifikasi IQ/OQ/PQ", text: "Tim terlatih pabrikan untuk instrumen molekuler dan spektroskopi analitik." },
-                    { title: "Bengkel & Kalibrasi", text: "Workshop pengujian dan pengetesan sensor serta buffer stock komponen utama." }
+                    { title: "Bengkel & Kalibrasi", text: "Workshop pengujian sensor presisi serta buffer stock komponen utama." }
                 ]
             },
             "sumatera": {
@@ -1413,11 +2182,11 @@
                 hub: "Ambon & Jayapura",
                 engineers: 4,
                 sla: "Maksimal 24 - 48 Jam",
-                desc: "Komitmen pemerataan layanan teknis hingga fasilitas kesehatan dan laboratorium di wilayah terluar dan pegunungan.",
+                desc: "Komitmen pemerataan layanan teknis hingga fasilitas kesehatan dan laboratorium di wilayah kepulauan dan pegunungan.",
                 provinces: ["Maluku", "Maluku Utara", "Papua", "Papua Barat", "Papua Selatan", "Papua Tengah", "Papua Pegunungan", "Papua Barat Daya"],
                 capabilities: [
                     { title: "Pendampingan Pemasangan", text: "Supervisi penempatan alat sesuai ketahanan tegangan listrik daerah." },
-                    { title: "Pelatihan Mandiri Operator", text: "Pemberian buku panduan dan modul perbaikan mandiri gangguan ringan." }
+                    { title: "Pelatihan Mandiri Operator", text: "Pemberian modul panduan mandiri penanganan kendala awal." }
                 ]
             }
         };
@@ -1457,19 +2226,24 @@
             const detailCard = document.getElementById('zoneDetailCard');
             if(!detailCard) return;
 
-            // Trigger reflow for animation
             detailCard.style.animation = 'none';
-            detailCard.offsetHeight; /* trigger reflow */
-            detailCard.style.animation = 'fadeIn 0.4s ease-in-out';
+            detailCard.offsetHeight;
+            detailCard.style.animation = 'fadeIn 0.35s ease-in-out';
 
             const current = technicianRegionalData[currentActiveZone];
             const provHtml = current.provinces.map(p => `
-                <span class="prov-tag"><i class="fa-solid fa-map-pin"></i> ${p}</span>
+                <span class="prov-tag">
+                    <svg viewBox="0 0 24 24" class="prov-pin-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    ${p}
+                </span>
             `).join('');
 
             const capHtml = current.capabilities.map(c => `
                 <div class="tech-spec-item">
-                    <h5><i class="fa-solid fa-circle-check" style="color: var(--gold-dark);"></i> ${c.title}</h5>
+                    <h5>
+                        <svg viewBox="0 0 24 24" class="ui-icon" style="color: var(--gold-dark); width: 16px; height: 16px;" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        ${c.title}
+                    </h5>
                     <p>${c.text}</p>
                 </div>
             `).join('');
@@ -1478,14 +2252,20 @@
                 <div class="zone-detail-header">
                     <div class="zone-detail-title">
                         <h4>Regional ${current.name}</h4>
-                        <p><i class="fa-solid fa-building"></i> Kantor Hub: <strong>${current.hub}</strong> &bull; ${current.engineers} Teknisi Tersertifikasi</p>
+                        <p>
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="width: 16px; height: 16px; color: var(--purple-main);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/>
+                            </svg>
+                            Kantor Hub: <strong>${current.hub}</strong> &bull; ${current.engineers} Teknisi Tersertifikasi
+                        </p>
                     </div>
                     <span class="sla-pill" title="Target Waktu Respons Lapangan">
-                        <i class="fa-solid fa-bolt" style="color: var(--gold-main);"></i> Kehadiran: ${current.sla}
+                        <svg viewBox="0 0 24 24" class="ui-icon" style="color: var(--gold-dark); width: 16px; height: 16px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        Kehadiran: ${current.sla}
                     </span>
                 </div>
-                <p style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 1rem; line-height: 1.5;">${current.desc}</p>
-                <div style="margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--purple-dark);">
+                <p style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 1rem; line-height: 1.55;">${current.desc}</p>
+                <div style="margin-bottom: 0.6rem; font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">
                     Cakupan Wilayah Provinsi Terjangkau:
                 </div>
                 <div class="province-tags">
@@ -1515,7 +2295,7 @@
 
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
-                if(window.scrollY > 50) {
+                if(window.scrollY > 40) {
                     navbar.style.boxShadow = 'var(--shadow-sm)';
                 } else {
                     navbar.style.boxShadow = 'none';
