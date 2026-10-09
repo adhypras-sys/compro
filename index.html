@@ -13,15 +13,21 @@
     <script>
         // Fungsi Failsafe Logo: Aktif jika file logo_vmi.png belum berada di folder/repo yang sama
         function handleLogoFallback(imgElement, size) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'fallback-logo-icon';
-            wrapper.style.width = size + 'px';
-            wrapper.style.height = size + 'px';
-            wrapper.innerHTML = `
-                <svg viewBox="0 0 24 24" class="ui-icon" style="width: 22px; height: 22px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>
-                </svg>`;
-            imgElement.parentNode.replaceChild(wrapper, imgElement);
+            try {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'fallback-logo-icon';
+                wrapper.style.width = size + 'px';
+                wrapper.style.height = size + 'px';
+                wrapper.innerHTML = `
+                    <svg viewBox="0 0 24 24" class="ui-icon" style="width: 22px; height: 22px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>
+                    </svg>`;
+                if (imgElement && imgElement.parentNode) {
+                    imgElement.parentNode.replaceChild(wrapper, imgElement);
+                }
+            } catch (err) {
+                console.error("Gagal memuat fallback logo:", err);
+            }
         }
     </script>
     
@@ -87,7 +93,7 @@
             position: relative;
         }
 
-        /* Standardisasi SVG Icon Universal (Bebas Masalah X) */
+        /* Standardisasi SVG Icon Universal */
         .ui-icon {
             display: inline-block;
             vertical-align: middle;
@@ -101,7 +107,7 @@
             flex-shrink: 0;
         }
 
-        /* Container & Pembatas Seksi Konsisten */
+        /* Container & Pembatas Seksi */
         .container {
             width: 100%;
             max-width: 1240px;
@@ -339,7 +345,7 @@
         .trust-text h4 { font-size: 0.95rem; font-weight: 700; color: #fff;}
         .trust-text p { font-size: 0.8rem; color: #BDB5CE; margin: 0;}
 
-        /* Header Seksi Terstandar (Hirarki Jelas) */
+        /* Header Seksi Terstandar */
         .section-header {
             text-align: center;
             margin-bottom: 3.5rem;
@@ -377,9 +383,7 @@
             line-height: 1.6;
         }
 
-        /* ========================================================
-           BAGIAN 1: LAYANAN PURNAJUAL
-           ======================================================== */
+        /* BAGIAN 1: LAYANAN PURNAJUAL */
         .section-dukungan {
             background: var(--bg-white);
             border-bottom: 1px solid var(--border-light);
@@ -501,9 +505,7 @@
             flex-shrink: 0;
         }
 
-        /* ========================================================
-           BAGIAN 2: JARINGAN TEKNISI
-           ======================================================== */
+        /* BAGIAN 2: JARINGAN TEKNISI */
         .section-teknisi {
             background: var(--bg-subtle);
             border-bottom: 1px solid var(--border-light);
@@ -772,9 +774,7 @@
             line-height: 1.5;
         }
 
-        /* ========================================================
-           BAGIAN 3: KATALOG INSTRUMEN
-           ======================================================== */
+        /* BAGIAN 3: KATALOG INSTRUMEN */
         .section-katalog {
             background: var(--bg-white);
             border-bottom: 1px solid var(--border-light);
@@ -1077,9 +1077,7 @@
             transform: scale(1.1);
         }
 
-        /* ========================================================
-           BAGIAN 4: STANDAR PELAKSANAAN & ALUR KERJA
-           ======================================================== */
+        /* BAGIAN 4: STANDAR PELAKSANAAN & ALUR KERJA */
         .section-workflow {
             background: var(--bg-subtle);
             border-bottom: 1px solid var(--border-light);
@@ -1214,8 +1212,26 @@
             margin-bottom: 2.5rem;
             width: 100%;
         }
-        .footer-brand .logo-text h1 { color: var(--bg-white); }
-        .footer-brand p { margin-top: 1rem; max-width: 420px; font-size: 0.9rem; line-height: 1.6;}
+        
+        /* Posisi logo footer horizontal inline persis seperti navbar */
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .footer-brand .logo {
+            margin-bottom: 1.1rem;
+        }
+        .footer-brand .logo-text h1 { 
+            color: var(--bg-white); 
+        }
+        .footer-brand p { 
+            max-width: 420px; 
+            font-size: 0.9rem; 
+            line-height: 1.6;
+            color: #BDB5CE;
+        }
+
         .footer-title {
             color: var(--bg-white);
             font-size: 1rem;
@@ -1252,9 +1268,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========================================================
-           RESPONSIVE RULES (TABLET & MOBILE)
-           ======================================================== */
+        /* RESPONSIVE RULES */
         @media (max-width: 1024px) {
             .hero-grid { 
                 grid-template-columns: 1fr; 
@@ -1382,7 +1396,7 @@
     <nav id="navbar">
         <div class="container nav-inner">
             <a href="#" class="logo">
-                <img src="logo_vmi.png" alt="Logo PT VMI" class="vmi-logo-img" onerror="handleLogoFallback(this, 42)">
+                <img src="logo_vmi.png" alt="Logo PT VMI" class="vmi-logo-img" onerror="handleLogoFallback(this, 44)">
                 <div class="logo-text">
                     <h1>PT VMI</h1>
                     <span>Solusi Laboratorium Terpadu</span>
@@ -1714,13 +1728,13 @@
     <footer id="kontak">
         <div class="container footer-grid">
             <div class="footer-brand">
-                <div class="logo-text" style="display: flex; align-items: left; gap: 10px; margin-bottom: 1rem;">
-                    <img src="logo_vmi.png" alt="Logo PT VMI" style="width: 34px; height: 34px; object-fit: contain;" onerror="handleLogoFallback(this, 34)">
-                    <div>
-                        <h1 style="font-size: 1.15rem; line-height: 1; color: var(--bg-white);">PT VMI</h1>
-                        <span style="color: var(--gold-main); font-size: 0.68rem; font-weight: 700;">Solusi Laboratorium Terpadu</span>
+                <a href="#" class="logo" style="text-decoration: none;">
+                    <img src="logo_vmi.png" alt="Logo PT VMI" class="vmi-logo-img" onerror="handleLogoFallback(this, 44)">
+                    <div class="logo-text">
+                        <h1 style="color: var(--bg-white);">PT VMI</h1>
+                        <span style="color: var(--gold-main); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;">Solusi Laboratorium Terpadu</span>
                     </div>
-                </div>
+                </a>
                 <p>Mitra pengadaan alat laboratorium terpadu, menghadirkan instrumen analitik dengan dukungan purnajual berkelanjutan untuk kelancaran riset dan diagnostik fasilitas Anda di seluruh Indonesia.</p>
             </div>
             
@@ -1754,7 +1768,7 @@
                 <h4 class="footer-title">Informasi Kontak</h4>
                 <ul class="footer-list">
                     <li>
-                        <svg viewBox="0 0 24 24" class="footer-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="10" cy="10" r="3"/></svg>
+                        <svg viewBox="0 0 24 24" class="footer-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                         <span>Kawasan Bisnis, Jakarta / Bekasi, Jawa Barat, Indonesia</span>
                     </li>
                     <li>
@@ -1776,7 +1790,7 @@
 
     <!-- SCRIPT LOGIKA SVG, KATALOG & ZONA TEKNISI -->
     <script>
-        // Pustaka Ikon Vektor SVG Universal (100% Bebas Ketergantungan Font Eksternal)
+        // Pustaka Ikon Vektor SVG Universal
         const SVG_PATHS = {
             'dna': `<path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1-1"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1 1"/>`,
             'bacteria': `<circle cx="12" cy="12" r="6"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/><circle cx="10" cy="10" r="1" fill="currentColor"/><circle cx="14" cy="13" r="1" fill="currentColor"/>`,
@@ -1987,126 +2001,142 @@
         let searchQuery = '';
 
         function buildFilters() {
-            let totalItems = 0;
-            const catKeys = Object.keys(rawCatalogData);
-            catKeys.forEach(k => totalItems += rawCatalogData[k].length);
+            try {
+                let totalItems = 0;
+                const catKeys = Object.keys(rawCatalogData);
+                catKeys.forEach(k => totalItems += rawCatalogData[k].length);
 
-            let btnHTML = `<button class="filter-btn active" data-filter="All">Semua <span class="badge">${totalItems}</span></button>`;
-            
-            catKeys.forEach(cat => {
-                const shortName = cat.split(',')[0].split('&')[0].trim();
-                btnHTML += `<button class="filter-btn" data-filter="${cat}">${shortName} <span class="badge">${rawCatalogData[cat].length}</span></button>`;
-            });
-
-            filterContainer.innerHTML = btnHTML;
-
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    e.currentTarget.classList.add('active');
-                    currentFilter = e.currentTarget.getAttribute('data-filter');
-                    renderCatalog();
+                let btnHTML = `<button class="filter-btn active" data-filter="All">Semua <span class="badge">${totalItems}</span></button>`;
+                
+                catKeys.forEach(cat => {
+                    const shortName = cat.split(',')[0].split('&')[0].trim();
+                    btnHTML += `<button class="filter-btn" data-filter="${cat}">${shortName} <span class="badge">${rawCatalogData[cat].length}</span></button>`;
                 });
-            });
+
+                filterContainer.innerHTML = btnHTML;
+
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        e.currentTarget.classList.add('active');
+                        currentFilter = e.currentTarget.getAttribute('data-filter');
+                        renderCatalog();
+                    });
+                });
+            } catch (err) {
+                console.error("Gagal menyusun filter katalog:", err);
+            }
         }
 
         window.toggleCategory = function(headerElement) {
-            const block = headerElement.parentElement;
-            block.classList.toggle('expanded');
+            try {
+                const block = headerElement.parentElement;
+                block.classList.toggle('expanded');
+            } catch (err) {
+                console.error("Error toggle kategori:", err);
+            }
         };
 
         window.toggleItemHighlight = function(element) {
-            element.classList.toggle('highlighted');
+            try {
+                element.classList.toggle('highlighted');
+            } catch (err) {
+                console.error("Error toggle highlight alat:", err);
+            }
         };
 
         function renderCatalog() {
-            catalogContent.innerHTML = '';
-            let isFound = false;
+            try {
+                catalogContent.innerHTML = '';
+                let isFound = false;
 
-            for (const [categoryName, items] of Object.entries(rawCatalogData)) {
-                if (currentFilter !== 'All' && currentFilter !== categoryName) continue;
+                for (const [categoryName, items] of Object.entries(rawCatalogData)) {
+                    if (currentFilter !== 'All' && currentFilter !== categoryName) continue;
 
-                const filteredItems = items.filter(item => item.toLowerCase().includes(searchQuery.toLowerCase()));
-                if (filteredItems.length === 0) continue;
-                isFound = true;
+                    const filteredItems = items.filter(item => item.toLowerCase().includes(searchQuery.toLowerCase()));
+                    if (filteredItems.length === 0) continue;
+                    isFound = true;
 
-                const catMeta = categoryDetails[categoryName];
+                    const catMeta = categoryDetails[categoryName];
 
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'category-block';
-                if (currentFilter !== 'All' || searchQuery !== '') {
-                    groupDiv.classList.add('expanded');
-                }
-                
-                let cardsHTML = '';
-                filteredItems.forEach(itemName => {
-                    const meta = getItemMetadata(itemName, categoryName);
+                    const groupDiv = document.createElement('div');
+                    groupDiv.className = 'category-block';
+                    if (currentFilter !== 'All' || searchQuery !== '') {
+                        groupDiv.classList.add('expanded');
+                    }
                     
-                    cardsHTML += `
-                        <div class="item-card" onclick="toggleItemHighlight(this)" title="Klik untuk menandai/highlight alat ini">
-                            <div class="item-card-top">
-                                <div class="item-icon" style="background-color: ${catMeta.bgColor}; color: ${catMeta.color}; border: 1px solid ${catMeta.borderColor};">
-                                    ${makeSvg(meta.iconKey, 22)}
+                    let cardsHTML = '';
+                    filteredItems.forEach(itemName => {
+                        const meta = getItemMetadata(itemName, categoryName);
+                        
+                        cardsHTML += `
+                            <div class="item-card" onclick="toggleItemHighlight(this)" title="Klik untuk menandai/highlight alat ini">
+                                <div class="item-card-top">
+                                    <div class="item-icon" style="background-color: ${catMeta.bgColor}; color: ${catMeta.color}; border: 1px solid ${catMeta.borderColor};">
+                                        ${makeSvg(meta.iconKey, 22)}
+                                    </div>
+                                    <div class="item-info">
+                                        <h5 class="item-name">${itemName}</h5>
+                                        <p class="item-function">${meta.desc}</p>
+                                    </div>
                                 </div>
-                                <div class="item-info">
-                                    <h5 class="item-name">${itemName}</h5>
-                                    <p class="item-function">${meta.desc}</p>
+                                <div class="item-footer">
+                                    <span class="status-badge" style="background-color: ${catMeta.badgeBg}; color: ${catMeta.color};">
+                                        ${makeSvg('check-circle', 14)} Siap Pasang
+                                    </span>
+                                    <div class="support-links" title="Pilih ikon untuk melompat ke detail dukungan teknis">
+                                        <a href="#dukungan-1" class="support-link" title="Dukungan Instalasi" onclick="event.stopPropagation();">${makeSvg('package', 15)}</a>
+                                        <a href="#dukungan-2" class="support-link" title="Dukungan Pelatihan" onclick="event.stopPropagation();">${makeSvg('training', 15)}</a>
+                                        <a href="#dukungan-3" class="support-link" title="Dukungan Perawatan Berkala" onclick="event.stopPropagation();">${makeSvg('check-clipboard', 15)}</a>
+                                        <a href="#dukungan-4" class="support-link" title="Dukungan Perbaikan Alat" onclick="event.stopPropagation();">${makeSvg('wrench', 15)}</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="item-footer">
-                                <span class="status-badge" style="background-color: ${catMeta.badgeBg}; color: ${catMeta.color};">
-                                    ${makeSvg('check-circle', 14)} Siap Pasang
-                                </span>
-                                <div class="support-links" title="Pilih ikon untuk melompat ke detail dukungan teknis">
-                                    <a href="#dukungan-1" class="support-link" title="Dukungan Instalasi" onclick="event.stopPropagation();">${makeSvg('package', 15)}</a>
-                                    <a href="#dukungan-2" class="support-link" title="Dukungan Pelatihan" onclick="event.stopPropagation();">${makeSvg('training', 15)}</a>
-                                    <a href="#dukungan-3" class="support-link" title="Dukungan Perawatan Berkala" onclick="event.stopPropagation();">${makeSvg('check-clipboard', 15)}</a>
-                                    <a href="#dukungan-4" class="support-link" title="Dukungan Perbaikan Alat" onclick="event.stopPropagation();">${makeSvg('wrench', 15)}</a>
+                        `;
+                    });
+
+                    groupDiv.innerHTML = `
+                        <div class="cat-header" onclick="toggleCategory(this)">
+                            <div class="cat-header-left">
+                                <div class="cat-icon" style="background-color: ${catMeta.bgColor}; color: ${catMeta.color}; border: 1px solid ${catMeta.borderColor};">
+                                    ${makeSvg(catMeta.iconKey, 22)}
+                                </div>
+                                <div class="cat-title">
+                                    <h4>${categoryName}</h4>
+                                    <p>${filteredItems.length} Instrumen Terdaftar</p>
+                                </div>
+                            </div>
+                            <div class="cat-toggle-icon">
+                                ${makeSvg('chevron-down', 18)}
+                            </div>
+                        </div>
+                        <div class="cat-content">
+                            <div class="cat-content-inner">
+                                <div class="items-grid">
+                                    ${cardsHTML}
                                 </div>
                             </div>
                         </div>
                     `;
-                });
 
-                groupDiv.innerHTML = `
-                    <div class="cat-header" onclick="toggleCategory(this)">
-                        <div class="cat-header-left">
-                            <div class="cat-icon" style="background-color: ${catMeta.bgColor}; color: ${catMeta.color}; border: 1px solid ${catMeta.borderColor};">
-                                ${makeSvg(catMeta.iconKey, 22)}
-                            </div>
-                            <div class="cat-title">
-                                <h4>${categoryName}</h4>
-                                <p>${filteredItems.length} Instrumen Terdaftar</p>
-                            </div>
-                        </div>
-                        <div class="cat-toggle-icon">
-                            ${makeSvg('chevron-down', 18)}
-                        </div>
-                    </div>
-                    <div class="cat-content">
-                        <div class="cat-content-inner">
-                            <div class="items-grid">
-                                ${cardsHTML}
-                            </div>
-                        </div>
-                    </div>
-                `;
+                    catalogContent.appendChild(groupDiv);
+                }
 
-                catalogContent.appendChild(groupDiv);
-            }
-
-            if (!isFound) {
-                catalogContent.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">
-                            <svg viewBox="0 0 24 24" style="width: 100%; height: 100%; stroke: currentColor; fill: none;" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/>
-                            </svg>
+                if (!isFound) {
+                    catalogContent.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <svg viewBox="0 0 24 24" style="width: 100%; height: 100%; stroke: currentColor; fill: none;" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/>
+                                </svg>
+                            </div>
+                            <h3 style="color: var(--purple-dark); margin-bottom: 8px;">Instrumen tidak ditemukan</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Kata kunci "${searchQuery}" tidak sesuai. Silakan coba kembali dengan istilah teknis lainnya.</p>
                         </div>
-                        <h3 style="color: var(--purple-dark); margin-bottom: 8px;">Instrumen tidak ditemukan</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Kata kunci "${searchQuery}" tidak sesuai. Silakan coba kembali dengan istilah teknis lainnya.</p>
-                    </div>
-                `;
+                    `;
+                }
+            } catch (err) {
+                console.error("Gagal merender katalog:", err);
             }
         }
 
@@ -2194,87 +2224,95 @@
         let currentActiveZone = "jawa_bali";
 
         function renderTechnicianZones() {
-            const container = document.getElementById('zoneListContainer');
-            if(!container) return;
-            container.innerHTML = '';
+            try {
+                const container = document.getElementById('zoneListContainer');
+                if(!container) return;
+                container.innerHTML = '';
 
-            for (const [key, data] of Object.entries(technicianRegionalData)) {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = `zone-btn ${key === currentActiveZone ? 'active' : ''}`;
-                btn.onclick = () => {
-                    currentActiveZone = key;
-                    renderTechnicianZones();
-                    renderZoneDetail();
-                };
+                for (const [key, data] of Object.entries(technicianRegionalData)) {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = `zone-btn ${key === currentActiveZone ? 'active' : ''}`;
+                    btn.onclick = () => {
+                        currentActiveZone = key;
+                        renderTechnicianZones();
+                        renderZoneDetail();
+                    };
 
-                btn.innerHTML = `
-                    <div class="zone-btn-left">
-                        <div class="zone-badge-dot"></div>
-                        <div>
-                            <div class="zone-btn-title">${data.name}</div>
-                            <div class="zone-btn-count">Hub: ${data.hub}</div>
+                    btn.innerHTML = `
+                        <div class="zone-btn-left">
+                            <div class="zone-badge-dot"></div>
+                            <div>
+                                <div class="zone-btn-title">${data.name}</div>
+                                <div class="zone-btn-count">Hub: ${data.hub}</div>
+                            </div>
                         </div>
-                    </div>
-                    <span class="zone-btn-tag">${data.engineers} Teknisi Siaga</span>
-                `;
-                container.appendChild(btn);
+                        <span class="zone-btn-tag">${data.engineers} Teknisi Siaga</span>
+                    `;
+                    container.appendChild(btn);
+                }
+            } catch (err) {
+                console.error("Gagal merender tombol zona teknisi:", err);
             }
         }
 
         function renderZoneDetail() {
-            const detailCard = document.getElementById('zoneDetailCard');
-            if(!detailCard) return;
+            try {
+                const detailCard = document.getElementById('zoneDetailCard');
+                if(!detailCard) return;
 
-            detailCard.style.animation = 'none';
-            detailCard.offsetHeight;
-            detailCard.style.animation = 'fadeIn 0.35s ease-in-out';
+                detailCard.style.animation = 'none';
+                detailCard.offsetHeight;
+                detailCard.style.animation = 'fadeIn 0.35s ease-in-out';
 
-            const current = technicianRegionalData[currentActiveZone];
-            const provHtml = current.provinces.map(p => `
-                <span class="prov-tag">
-                    <svg viewBox="0 0 24 24" class="prov-pin-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                    ${p}
-                </span>
-            `).join('');
-
-            const capHtml = current.capabilities.map(c => `
-                <div class="tech-spec-item">
-                    <h5>
-                        <svg viewBox="0 0 24 24" class="ui-icon" style="color: var(--gold-dark); width: 16px; height: 16px;" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                        ${c.title}
-                    </h5>
-                    <p>${c.text}</p>
-                </div>
-            `).join('');
-
-            detailCard.innerHTML = `
-                <div class="zone-detail-header">
-                    <div class="zone-detail-title">
-                        <h4>Regional ${current.name}</h4>
-                        <p>
-                            <svg viewBox="0 0 24 24" class="ui-icon" style="width: 16px; height: 16px; color: var(--purple-main);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/>
-                            </svg>
-                            Kantor Hub: <strong>${current.hub}</strong> &bull; ${current.engineers} Teknisi Tersertifikasi
-                        </p>
-                    </div>
-                    <span class="sla-pill" title="Target Waktu Respons Lapangan">
-                        <svg viewBox="0 0 24 24" class="ui-icon" style="color: var(--gold-dark); width: 16px; height: 16px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                        Kehadiran: ${current.sla}
+                const current = technicianRegionalData[currentActiveZone];
+                const provHtml = current.provinces.map(p => `
+                    <span class="prov-tag">
+                        <svg viewBox="0 0 24 24" class="prov-pin-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        ${p}
                     </span>
-                </div>
-                <p style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 1rem; line-height: 1.55;">${current.desc}</p>
-                <div style="margin-bottom: 0.6rem; font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">
-                    Cakupan Wilayah Provinsi Terjangkau:
-                </div>
-                <div class="province-tags">
-                    ${provHtml}
-                </div>
-                <div class="tech-spec-grid">
-                    ${capHtml}
-                </div>
-            `;
+                `).join('');
+
+                const capHtml = current.capabilities.map(c => `
+                    <div class="tech-spec-item">
+                        <h5>
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="color: var(--gold-dark); width: 16px; height: 16px;" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                            ${c.title}
+                        </h5>
+                        <p>${c.text}</p>
+                    </div>
+                `).join('');
+
+                detailCard.innerHTML = `
+                    <div class="zone-detail-header">
+                        <div class="zone-detail-title">
+                            <h4>Regional ${current.name}</h4>
+                            <p>
+                                <svg viewBox="0 0 24 24" class="ui-icon" style="width: 16px; height: 16px; color: var(--purple-main);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/>
+                                </svg>
+                                Kantor Hub: <strong>${current.hub}</strong> &bull; ${current.engineers} Teknisi Tersertifikasi
+                            </p>
+                        </div>
+                        <span class="sla-pill" title="Target Waktu Respons Lapangan">
+                            <svg viewBox="0 0 24 24" class="ui-icon" style="color: var(--gold-dark); width: 16px; height: 16px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            Kehadiran: ${current.sla}
+                        </span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 1rem; line-height: 1.55;">${current.desc}</p>
+                    <div style="margin-bottom: 0.6rem; font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">
+                        Cakupan Wilayah Provinsi Terjangkau:
+                    </div>
+                    <div class="province-tags">
+                        ${provHtml}
+                    </div>
+                    <div class="tech-spec-grid">
+                        ${capHtml}
+                    </div>
+                `;
+            } catch (err) {
+                console.error("Gagal merender detail zona:", err);
+            }
         }
 
         const observer = new IntersectionObserver((entries) => {
@@ -2286,21 +2324,25 @@
         }, { threshold: 0.1 });
 
         window.addEventListener('DOMContentLoaded', () => {
-            buildFilters();
-            renderCatalog();
-            renderTechnicianZones();
-            renderZoneDetail();
-            
-            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+            try {
+                buildFilters();
+                renderCatalog();
+                renderTechnicianZones();
+                renderZoneDetail();
+                
+                document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if(window.scrollY > 40) {
-                    navbar.style.boxShadow = 'var(--shadow-sm)';
-                } else {
-                    navbar.style.boxShadow = 'none';
-                }
-            });
+                const navbar = document.getElementById('navbar');
+                window.addEventListener('scroll', () => {
+                    if(window.scrollY > 40) {
+                        navbar.style.boxShadow = 'var(--shadow-sm)';
+                    } else {
+                        navbar.style.boxShadow = 'none';
+                    }
+                });
+            } catch (err) {
+                console.error("Error pada saat inisialisasi DOM:", err);
+            }
         });
     </script>
 </body>
