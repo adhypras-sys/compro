@@ -438,8 +438,8 @@
     <nav id="navbar">
         <div class="container nav-inner">
             <a href="#" class="logo">
-                <!-- Pemanggilan File SVG -->
-                <img src="logo_vmi.svg" alt="Logo PT VMI">
+                <!-- Pemanggilan File PNG Logo PT VMI -->
+                <img src="logo_vmi.png" alt="Logo PT VMI" class="vmi-logo-img" onerror="handleLogoFallback(this, 45)">
                 <div class="logo-text">
                     <h1>PT VMI</h1>
                     <span>Solusi Laboratorium Terpadu</span>
@@ -486,8 +486,8 @@
                 <div style="position: relative; width: 100%; aspect-ratio: 1; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%); display: flex; align-items: center; justify-content: center;">
                     <div style="width: 220px; height: 220px; border-radius: 50%; border: 1px dashed rgba(212,175,55,0.4); animation: spin 25s linear infinite; position: absolute;"></div>
                     <div style="width: 150px; height: 150px; border-radius: 50%; background: var(--bg-white); box-shadow: 0 0 30px rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; z-index: 2;">
-                        <!-- Pemanggilan File SVG di Hero Image -->
-                        <img src="logo_vmi.svg" alt="VMI Mark" style="height: 90px; width: auto; object-fit: contain;">
+                        <!-- Pemanggilan File PNG di Hero Image -->
+                        <img src="logo_vmi.png" alt="VMI Mark" style="height: 90px; width: auto; object-fit: contain;" onerror="handleLogoFallback(this, 90)">
                     </div>
                 </div>
                 <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
@@ -606,8 +606,8 @@
         <div class="container footer-grid">
             <div class="footer-brand">
                 <a href="#" class="logo" style="margin-bottom: 1rem;">
-                    <!-- Pemanggilan File SVG di Footer -->
-                    <img src="logo_vmi.svg" alt="Logo PT VMI" style="height: 35px; width: auto; background: white; padding: 4px; border-radius: 4px; object-fit: contain;">
+                    <!-- Pemanggilan File PNG di Footer -->
+                    <img src="logo_vmi.png" alt="Logo PT VMI" style="height: 35px; width: auto; background: white; padding: 4px; border-radius: 4px; object-fit: contain;" onerror="handleLogoFallback(this, 35)">
                     <div class="logo-text">
                         <h1 style="color: white; font-size: 1.2rem;">PT VMI</h1>
                         <span style="color: var(--gold-main); font-size: 0.65rem;">Solusi Laboratorium Terpadu</span>
@@ -852,6 +852,30 @@
             searchQuery = e.target.value.trim();
             renderCatalog();
         });
+
+        // Menangani proteksi tampilan jika file PNG belum selesai di-cache atau terunggah
+        function handleLogoFallback(imgElement, size = 45) {
+            imgElement.onerror = null;
+            const svgFallback = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="${size}" height="${size}" style="display:block; flex-shrink:0;">
+                    <defs>
+                        <linearGradient id="blueGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#1d4ed8" />
+                            <stop offset="100%" stop-color="#3b82f6" />
+                        </linearGradient>
+                        <linearGradient id="greenGradNav" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#84cc16" />
+                            <stop offset="100%" stop-color="#06b6d4" />
+                        </linearGradient>
+                    </defs>
+                    <polygon points="30,360 30,160 80,220 80,360" fill="url(#blueGradNav)"/>
+                    <polygon points="260,360 260,260 310,200 310,360" fill="url(#blueGradNav)"/>
+                    <polygon points="10,150 60,130 190,340 140,370" fill="url(#greenGradNav)"/>
+                    <polygon points="140,370 190,340 350,90 300,120" fill="url(#greenGradNav)"/>
+                    <polygon points="370,40 370,150 260,40" fill="url(#greenGradNav)"/>
+                </svg>`;
+            imgElement.outerHTML = svgFallback;
+        }
 
         // Observer untuk Animasi Fade-in
         const observer = new IntersectionObserver((entries) => {
